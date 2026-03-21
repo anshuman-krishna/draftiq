@@ -1,0 +1,246 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  domain    String?  @unique
+  settings  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users             User[]
+  quotes            Quote[]
+  pricingRules      PricingRule[]
+  products          Product[]
+  availability      Availability[]
+  bookings          Booking[]
+  payments          Payment[]
+  integrationConfigs IntegrationConfig[]
+  analyticsEvents   AnalyticsEvent[]
+
+  @@map("tenants")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  tenantId  String?  @map("tenant_id")
+  email     String   @unique
+  name      String?
+  phone     String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+  quotes Quote[]
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Quote {
+  id         String      @id @default(uuid())
+  tenantId   String?     @map("tenant_id")
+  userId     String?     @map("user_id")
+  status     QuoteStatus @default(DRAFT)
+  totalPrice Decimal     @default(0) @map("total_price") @db.Decimal(10, 2)
+  breakdown  Json?
+  answers    Json?
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  tenant   Tenant?   @relation(fields: [tenantId], references: [id])
+  user     User?     @relation(fields: [userId], references: [id])
+  booking  Booking?
+  payments Payment[]
+
+  @@index([tenantId])
+  @@index([userId])
+  @@map("quotes")
+}
+
+model PricingRule {
+  id        String          @id @default(uuid())
+  tenantId  String?         @map("tenant_id")
+  key       String          @unique
+  label     String
+  type      PricingRuleType
+  value     Decimal         @db.Decimal(10, 2)
+  baseKey   String?         @map("base_key")
+  isActive  Boolean         @default(true) @map("is_active")
+  category  String?
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([category])
+  @@map("pricing_rules")
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  tenantId  String?  @map("tenant_id")
+  name      String
+  category  String
+  basePrice Decimal  @map("base_price") @db.Decimal(10, 2)
+  isActive  Boolean  @default(true) @map("is_active")
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([category])
+  @@map("products")
+}
+
+model Availability {
+  id         String   @id @default(uuid())
+  tenantId   String?  @map("tenant_id")
+  date       DateTime @unique @db.Date
+  totalSlots Int      @default(6) @map("total_slots")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant?   @relation(fields: [tenantId], references: [id])
+  bookings Booking[]
+
+  @@index([tenantId])
+  @@map("availability")
+}
+
+model Booking {
+  id             String        @id @default(uuid())
+  tenantId       String?       @map("tenant_id")
+  quoteId        String?       @unique @map("quote_id")
+  availabilityId String?       @map("availability_id")
+  date           DateTime      @db.Date
+  slot           String
+  status         BookingStatus @default(PENDING)
+  createdAt      DateTime      @default(now()) @map("created_at")
+
+  tenant       Tenant?       @relation(fields: [tenantId], references: [id])
+  quote        Quote?        @relation(fields: [quoteId], references: [id])
+  availability Availability? @relation(fields: [availabilityId], references: [id])
+  payments     Payment[]
+
+  @@index([tenantId])
+  @@index([date, slot])
+  @@index([availabilityId])
+  @@map("bookings")
+}
+
+model Payment {
+  id        String        @id @default(uuid())
+  tenantId  String?       @map("tenant_id")
+  bookingId String?       @map("booking_id")
+  quoteId   String?       @map("quote_id")
+  amount    Decimal       @db.Decimal(10, 2)
+  currency  String        @default("usd")
+  status    PaymentStatus @default(PENDING)
+  stripeId  String?       @unique @map("stripe_id")
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+
+  tenant  Tenant?  @relation(fields: [tenantId], references: [id])
+  booking Booking? @relation(fields: [bookingId], references: [id])
+  quote   Quote?   @relation(fields: [quoteId], references: [id])
+
+  @@index([tenantId])
+  @@index([bookingId])
+  @@index([quoteId])
+  @@index([stripeId])
+  @@map("payments")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+  SALESPERSON
+}
+
+enum QuoteStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+
+enum PricingRuleType {
+  FIXED
+  PERCENTAGE
+  PER_UNIT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model IntegrationConfig {
+  id        String  @id @default(uuid())
+  tenantId  String? @map("tenant_id")
+  provider  String  @unique // "hubspot" | "ghl"
+  isEnabled Boolean @default(false) @map("is_enabled")
+  apiKey    String? @map("api_key")
+  metadata  Json?   // extra config like location_id, pipeline_id
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("integration_configs")
+}
+
+model IntegrationLog {
+  id        String   @id @default(uuid())
+  provider  String
+  action    String   // "create_contact", "update_contact", "create_deal"
+  status    String   // "success" | "failed"
+  payload   Json?
+  error     String?  @db.Text
+  entityId  String?  @map("entity_id") // booking/quote id
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([provider])
+  @@index([entityId])
+  @@index([createdAt])
+  @@map("integration_logs")
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  tenantId  String?  @map("tenant_id")
+  eventType String   @map("event_type")
+  metadata  Json
+  sessionId String?  @map("session_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([eventType])
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+}

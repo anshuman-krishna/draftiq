@@ -1,0 +1,35 @@
+.turbo
+*.tsbuildinfo
+
+# dependencies
+node_modules
+
+# env
+.env
+.env.*
+.env.local
+
+# next.js
+.next
+out
+
+# build
+dist
+build
+
+# logs
+*.log
+
+# system
+.DS_Store
+
+# prisma
+prisma/dev.db
+
+# misc
+coverage
+
+# testing and stuff 
+CLAUDE.md
+claude.md
+*.prompt.md
