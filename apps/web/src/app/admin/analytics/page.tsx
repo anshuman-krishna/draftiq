@@ -26,9 +26,7 @@ function FunnelChart({ data }: { data: FunnelStep[] }) {
         <div key={step.step} className="group">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-neutral-500 w-5 text-right">
-                {i + 1}
-              </span>
+              <span className="text-xs font-medium text-neutral-500 w-5 text-right">{i + 1}</span>
               <span className="text-sm text-neutral-700">{step.label}</span>
             </div>
             <div className="flex items-center gap-3">
@@ -56,9 +54,7 @@ function FunnelChart({ data }: { data: FunnelStep[] }) {
               />
             </div>
             {step.dropOff > 0 && (
-              <span className="text-[10px] text-red-400 whitespace-nowrap">
-                -{step.dropOff}
-              </span>
+              <span className="text-[10px] text-red-400 whitespace-nowrap">-{step.dropOff}</span>
             )}
           </div>
         </div>
@@ -95,7 +91,11 @@ function RevenueChart({ data }: { data: DailyRevenue[] }) {
             }}
           />
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block whitespace-nowrap rounded-lg bg-neutral-900 px-2 py-1 text-xs text-white shadow-lg">
-            ${day.revenue.toLocaleString()} — {new Date(day.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+            ${day.revenue.toLocaleString()} —{" "}
+            {new Date(day.date + "T00:00:00").toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
           </div>
         </div>
       ))}
@@ -103,22 +103,12 @@ function RevenueChart({ data }: { data: DailyRevenue[] }) {
   );
 }
 
-function StatCard({
-  label,
-  value,
-  subtext,
-}: {
-  label: string;
-  value: string;
-  subtext?: string;
-}) {
+function StatCard({ label, value, subtext }: { label: string; value: string; subtext?: string }) {
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white/60 p-5">
       <p className="text-xs font-medium text-neutral-500 mb-1">{label}</p>
       <p className="text-2xl font-bold text-neutral-900">{value}</p>
-      {subtext && (
-        <p className="text-xs text-neutral-400 mt-1">{subtext}</p>
-      )}
+      {subtext && <p className="text-xs text-neutral-400 mt-1">{subtext}</p>}
     </div>
   );
 }
@@ -140,13 +130,15 @@ export default function AnalyticsPage() {
     useCallback(() => fetchAnalyticsEvents(30), []),
   );
 
+  const { data: insights, loading: insightsLoading } = useAdminData(
+    useCallback(() => fetchInsights(30), []),
+  );
+
   return (
     <div className="space-y-8">
       {/* revenue stat cards */}
       <div>
-        <h2 className="mb-4 text-sm font-medium text-neutral-500">
-          revenue — last 30 days
-        </h2>
+        <h2 className="mb-4 text-sm font-medium text-neutral-500">revenue — last 30 days</h2>
         {revenueLoading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -169,23 +161,32 @@ export default function AnalyticsPage() {
               value={`${revenue.conversionRate}%`}
               subtext={`${revenue.totalSessions} sessions`}
             />
-            <StatCard
-              label="total sessions"
-              value={revenue.totalSessions.toLocaleString()}
-            />
+            <StatCard label="total sessions" value={revenue.totalSessions.toLocaleString()} />
           </div>
         ) : null}
       </div>
 
       {/* daily revenue chart */}
       <div className="rounded-2xl border border-neutral-200 bg-white/60 p-6">
-        <h2 className="mb-4 text-sm font-medium text-neutral-500">
-          daily revenue
-        </h2>
+        <h2 className="mb-4 text-sm font-medium text-neutral-500">daily revenue</h2>
         {dailyLoading ? (
           <div className="h-40 animate-pulse rounded-xl bg-neutral-100" />
         ) : (
           <RevenueChart data={dailyRevenue ?? []} />
+        )}
+      </div>
+
+      {/* ai insights */}
+      <div className="rounded-2xl border border-neutral-200 bg-white/60 p-6">
+        <h2 className="mb-4 text-sm font-medium text-neutral-500">ai insights</h2>
+        {insightsLoading ? (
+          <div className="space-y-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="h-16 animate-pulse rounded-xl bg-neutral-100" />
+            ))}
+          </div>
+        ) : (
+          <InsightsPanel data={insights ?? []} />
         )}
       </div>
 
@@ -212,26 +213,16 @@ export default function AnalyticsPage() {
       {/* recent activity */}
       <div className="rounded-2xl border border-neutral-200 bg-white/60">
         <div className="border-b border-neutral-100 px-6 py-4">
-          <h2 className="text-sm font-medium text-neutral-500">
-            recent events
-          </h2>
+          <h2 className="text-sm font-medium text-neutral-500">recent events</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead className="bg-neutral-50/80">
               <tr>
-                <th className="px-6 py-3 text-xs font-medium text-neutral-500">
-                  time
-                </th>
-                <th className="px-6 py-3 text-xs font-medium text-neutral-500">
-                  event
-                </th>
-                <th className="px-6 py-3 text-xs font-medium text-neutral-500">
-                  session
-                </th>
-                <th className="px-6 py-3 text-xs font-medium text-neutral-500">
-                  details
-                </th>
+                <th className="px-6 py-3 text-xs font-medium text-neutral-500">time</th>
+                <th className="px-6 py-3 text-xs font-medium text-neutral-500">event</th>
+                <th className="px-6 py-3 text-xs font-medium text-neutral-500">session</th>
+                <th className="px-6 py-3 text-xs font-medium text-neutral-500">details</th>
               </tr>
             </thead>
             <tbody>
@@ -245,22 +236,65 @@ export default function AnalyticsPage() {
                 ))
               ) : (events ?? []).length === 0 ? (
                 <tr>
-                  <td
-                    colSpan={4}
-                    className="px-6 py-12 text-center text-sm text-neutral-400"
-                  >
+                  <td colSpan={4} className="px-6 py-12 text-center text-sm text-neutral-400">
                     no events tracked yet
                   </td>
                 </tr>
               ) : (
-                (events ?? []).map((event) => (
-                  <EventRow key={event.id} event={event} />
-                ))
+                (events ?? []).map((event) => <EventRow key={event.id} event={event} />)
               )}
             </tbody>
           </table>
         </div>
       </div>
+    </div>
+  );
+}
+
+function InsightsPanel({ data }: { data: AdminInsight[] }) {
+  if (data.length === 0) {
+    return (
+      <p className="text-sm text-neutral-400 text-center py-8">
+        not enough data to generate insights yet
+      </p>
+    );
+  }
+
+  const iconMap = {
+    warning: "⚠",
+    recommendation: "→",
+    success: "✓",
+  };
+
+  const colorMap = {
+    warning: "border-l-[#ffc9b9] bg-[#ffc9b9]/5",
+    recommendation: "border-l-[#a7c7e7] bg-[#a7c7e7]/5",
+    success: "border-l-[#b8e0d2] bg-[#b8e0d2]/5",
+  };
+
+  return (
+    <div className="space-y-3">
+      {data.map((insight, i) => (
+        <div
+          key={i}
+          className={`rounded-xl border border-neutral-200 border-l-4 p-4 ${colorMap[insight.type]}`}
+        >
+          <div className="flex items-start gap-3">
+            <span className="text-sm mt-0.5">{iconMap[insight.type]}</span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-medium text-neutral-800">{insight.title}</p>
+                {insight.metric && (
+                  <span className="text-xs font-mono text-neutral-500 shrink-0">
+                    {insight.metric}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-neutral-500 mt-1">{insight.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -285,16 +319,12 @@ function EventRow({ event }: { event: AnalyticsEventItem }) {
         })}
       </td>
       <td className="px-6 py-3">
-        <Badge variant={eventCategory}>
-          {event.eventType}
-        </Badge>
+        <Badge variant={eventCategory}>{event.eventType}</Badge>
       </td>
       <td className="px-6 py-3 text-xs text-neutral-500 font-mono">
         {event.sessionId ? event.sessionId.slice(0, 8) : "—"}
       </td>
-      <td className="px-6 py-3 text-xs text-neutral-500">
-        {formatMetadata(event.metadata)}
-      </td>
+      <td className="px-6 py-3 text-xs text-neutral-500">{formatMetadata(event.metadata)}</td>
     </tr>
   );
 }

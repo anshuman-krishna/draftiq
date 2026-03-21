@@ -10,12 +10,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-neutral-900 text-white hover:bg-neutral-800 shadow-lg hover:shadow-xl",
-  secondary:
-    "glass-medium text-neutral-900 hover:bg-white/30",
-  ghost:
-    "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/50",
+  primary: "bg-neutral-900 text-white hover:bg-neutral-800 shadow-lg hover:shadow-xl",
+  secondary: "glass-medium text-neutral-900 hover:bg-white/30",
+  ghost: "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/50",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -45,11 +42,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <svg
-            className="mr-2 h-4 w-4 animate-spin"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
+          <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
             <circle
               className="opacity-25"
               cx="12"

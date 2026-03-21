@@ -46,9 +46,7 @@ export class PricingService {
     });
   }
 
-  async calculatePrice(
-    answers: Record<string, string | string[]>,
-  ): Promise<PriceBreakdown> {
+  async calculatePrice(answers: Record<string, string | string[]>): Promise<PriceBreakdown> {
     // collect all pricing keys from answers
     const pricingKeys = this.resolvePricingKeys(answers);
 
@@ -95,9 +93,7 @@ export class PricingService {
 
   // maps configurator answers to pricing rule keys
   // keys follow the format "category:option" (e.g., "base:large", "addon:thermostat")
-  private resolvePricingKeys(
-    answers: Record<string, string | string[]>,
-  ): string[] {
+  private resolvePricingKeys(answers: Record<string, string | string[]>): string[] {
     const keys: string[] = [];
 
     // mapping from step ids to pricing key prefixes

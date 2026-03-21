@@ -47,9 +47,7 @@ export const useBookingStore = create<BookingState>((set, get) => ({
       set({ availability: data, loading: false });
 
       // auto-select earliest available date
-      const first = data.find((d) =>
-        d.slots.some((s) => s.remaining > 0),
-      );
+      const first = data.find((d) => d.slots.some((s) => s.remaining > 0));
       if (first && !get().selectedDate) {
         set({ selectedDate: first.date });
       }

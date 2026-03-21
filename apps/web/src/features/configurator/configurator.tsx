@@ -145,11 +145,7 @@ export function Configurator() {
   return (
     <div className="mx-auto max-w-7xl px-4 pt-24 pb-12 sm:px-6 lg:px-8">
       <div className="mb-10 flex justify-center">
-        <Stepper
-          steps={stepLabels}
-          currentStep={currentStepIndex}
-          onStepClick={goToStep}
-        />
+        <Stepper steps={stepLabels} currentStep={currentStepIndex} onStepClick={goToStep} />
       </div>
 
       <div className="flex flex-col gap-8 lg:flex-row">
@@ -179,11 +175,7 @@ export function Configurator() {
               </Button>
 
               {isBookingStep ? (
-                <Button
-                  size="lg"
-                  onClick={confirmBooking}
-                  disabled={!selectedSlot || submitting}
-                >
+                <Button size="lg" onClick={confirmBooking} disabled={!selectedSlot || submitting}>
                   {submitting ? (
                     <>
                       <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -193,7 +185,13 @@ export function Configurator() {
                     <>
                       continue to payment
                       <svg className="ml-2" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path
+                          d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     </>
                   )}
@@ -202,7 +200,13 @@ export function Configurator() {
                 <Button size="lg" onClick={nextStep}>
                   schedule installation
                   <svg className="ml-2" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </Button>
               ) : (
@@ -223,11 +227,7 @@ export function Configurator() {
         {/* pricing sidebar — desktop */}
         <div className={`hidden lg:w-80 ${hidesPricing ? "" : "lg:block"}`}>
           <div className="sticky top-24">
-            <PricingSidebar
-              items={pricing.items}
-              total={pricing.total}
-              loading={loading}
-            />
+            <PricingSidebar items={pricing.items} total={pricing.total} loading={loading} />
           </div>
         </div>
       </div>
@@ -265,7 +265,13 @@ export function Configurator() {
                   fill="none"
                   className="text-neutral-400"
                 >
-                  <path d="M5 15l7-7 7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M5 15l7-7 7 7"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </motion.svg>
               </div>
             </div>

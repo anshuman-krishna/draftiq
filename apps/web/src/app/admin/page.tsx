@@ -2,12 +2,7 @@
 
 import { useCallback } from "react";
 import { motion } from "framer-motion";
-import {
-  fetchBookings,
-  fetchPayments,
-  fetchPricingRules,
-  fetchQuotes,
-} from "@/features/admin/api";
+import { fetchBookings, fetchPayments, fetchPricingRules, fetchQuotes } from "@/features/admin/api";
 import { useAdminData } from "@/features/admin/use-admin-data";
 
 function StatCard({
@@ -28,13 +23,9 @@ function StatCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
     >
-      <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">
-        {label}
-      </p>
+      <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">{label}</p>
       <p className="mt-2 text-3xl font-bold text-neutral-900">{value}</p>
-      {subtitle && (
-        <p className="mt-1 text-sm text-neutral-500">{subtitle}</p>
-      )}
+      {subtitle && <p className="mt-1 text-sm text-neutral-500">{subtitle}</p>}
     </motion.div>
   );
 }
@@ -61,13 +52,9 @@ export default function AdminDashboardPage() {
         .reduce((sum, p) => sum + parseFloat(p.amount), 0)
     : 0;
 
-  const confirmedBookings = bookings
-    ? bookings.filter((b) => b.status === "CONFIRMED").length
-    : 0;
+  const confirmedBookings = bookings ? bookings.filter((b) => b.status === "CONFIRMED").length : 0;
 
-  const pendingBookings = bookings
-    ? bookings.filter((b) => b.status === "PENDING").length
-    : 0;
+  const pendingBookings = bookings ? bookings.filter((b) => b.status === "PENDING").length : 0;
 
   if (loading) {
     return (
@@ -94,11 +81,7 @@ export default function AdminDashboardPage() {
           subtitle={`${confirmedBookings} confirmed · ${pendingBookings} pending`}
           delay={0.05}
         />
-        <StatCard
-          label="total quotes"
-          value={quotes?.length ?? 0}
-          delay={0.1}
-        />
+        <StatCard label="total quotes" value={quotes?.length ?? 0} delay={0.1} />
         <StatCard
           label="pricing rules"
           value={rules?.length ?? 0}

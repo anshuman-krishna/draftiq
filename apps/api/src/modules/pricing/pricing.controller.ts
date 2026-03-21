@@ -18,10 +18,7 @@ export class PricingController {
   }
 
   @Patch("rules/:id")
-  async updateRule(
-    @Param("id") id: string,
-    @Body() dto: UpdatePricingRuleDto,
-  ) {
+  async updateRule(@Param("id") id: string, @Body() dto: UpdatePricingRuleDto) {
     return this.pricingService.updateRule(id, dto);
   }
 

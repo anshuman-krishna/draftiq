@@ -60,9 +60,7 @@ function ProviderCard({
             </svg>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-neutral-900">
-              {meta.label}
-            </h3>
+            <h3 className="text-sm font-semibold text-neutral-900">{meta.label}</h3>
             <p className="text-xs text-neutral-500">{meta.description}</p>
           </div>
         </div>
@@ -112,9 +110,7 @@ function LogRow({ log }: { log: IntegrationLog }) {
       </td>
       <td className="px-4 py-3 text-sm text-neutral-600">{log.action}</td>
       <td className="px-4 py-3">
-        <Badge variant={log.status === "success" ? "success" : "danger"}>
-          {log.status}
-        </Badge>
+        <Badge variant={log.status === "success" ? "success" : "danger"}>{log.status}</Badge>
       </td>
       <td className="px-4 py-3 text-xs text-neutral-500">
         {log.entityId ? (
@@ -126,9 +122,7 @@ function LogRow({ log }: { log: IntegrationLog }) {
       <td className="px-4 py-3 text-xs text-neutral-500">
         {log.error ? (
           <span className="text-red-500" title={log.error}>
-            {log.error.length > 40
-              ? `${log.error.slice(0, 40)}...`
-              : log.error}
+            {log.error.length > 40 ? `${log.error.slice(0, 40)}...` : log.error}
           </span>
         ) : (
           <span className="text-neutral-300">—</span>
@@ -167,16 +161,11 @@ export default function IntegrationsPage() {
     <div className="space-y-8">
       {/* provider cards */}
       <div>
-        <h2 className="mb-4 text-sm font-medium text-neutral-500">
-          crm providers
-        </h2>
+        <h2 className="mb-4 text-sm font-medium text-neutral-500">crm providers</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {configsLoading
             ? Array.from({ length: 2 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-32 animate-pulse rounded-2xl bg-neutral-100"
-                />
+                <div key={i} className="h-32 animate-pulse rounded-2xl bg-neutral-100" />
               ))
             : (configs ?? []).map((config) => (
                 <ProviderCard
@@ -191,31 +180,17 @@ export default function IntegrationsPage() {
 
       {/* activity log */}
       <div>
-        <h2 className="mb-4 text-sm font-medium text-neutral-500">
-          recent activity
-        </h2>
+        <h2 className="mb-4 text-sm font-medium text-neutral-500">recent activity</h2>
         <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white/60">
           <table className="w-full text-left">
             <thead className="bg-neutral-50/80">
               <tr>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  time
-                </th>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  provider
-                </th>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  action
-                </th>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  status
-                </th>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  entity
-                </th>
-                <th className="px-4 py-3 text-xs font-medium text-neutral-500">
-                  error
-                </th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">time</th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">provider</th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">action</th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">status</th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">entity</th>
+                <th className="px-4 py-3 text-xs font-medium text-neutral-500">error</th>
               </tr>
             </thead>
             <tbody>
@@ -229,10 +204,7 @@ export default function IntegrationsPage() {
                 ))
               ) : (logs ?? []).length === 0 ? (
                 <tr>
-                  <td
-                    colSpan={6}
-                    className="px-4 py-12 text-center text-sm text-neutral-400"
-                  >
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-neutral-400">
                     no integration activity yet
                   </td>
                 </tr>

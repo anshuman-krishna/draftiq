@@ -23,9 +23,7 @@ export interface TenantConfig {
 // resolve tenant from slug or current domain
 export async function fetchTenantConfig(slug?: string): Promise<TenantConfig | null> {
   try {
-    const endpoint = slug
-      ? `${API_BASE}/tenants/${slug}`
-      : `${API_BASE}/tenants/current`;
+    const endpoint = slug ? `${API_BASE}/tenants/${slug}` : `${API_BASE}/tenants/current`;
 
     const headers: Record<string, string> = { "Content-Type": "application/json" };
     if (!slug && typeof window !== "undefined") {

@@ -74,25 +74,17 @@ export class PaymentsService {
 
     let event: Stripe.Event;
     try {
-      event = this.stripe.webhooks.constructEvent(
-        rawBody,
-        signature,
-        webhookSecret,
-      );
+      event = this.stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
     } catch {
       throw new BadRequestException("invalid webhook signature");
     }
 
     switch (event.type) {
       case "payment_intent.succeeded":
-        await this.handlePaymentSucceeded(
-          event.data.object as Stripe.PaymentIntent,
-        );
+        await this.handlePaymentSucceeded(event.data.object as Stripe.PaymentIntent);
         break;
       case "payment_intent.payment_failed":
-        await this.handlePaymentFailed(
-          event.data.object as Stripe.PaymentIntent,
-        );
+        await this.handlePaymentFailed(event.data.object as Stripe.PaymentIntent);
         break;
     }
 

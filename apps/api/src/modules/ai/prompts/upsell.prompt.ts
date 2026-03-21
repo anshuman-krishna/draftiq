@@ -9,12 +9,37 @@ export function buildUpsellPrompt(
   const selectedAddons = Array.isArray(answers["add-ons"]) ? answers["add-ons"] : [];
 
   const availableAddons = [
-    { id: "thermostat", label: "smart thermostat", price: 350, benefit: "wi-fi enabled, learns your schedule" },
+    {
+      id: "thermostat",
+      label: "smart thermostat",
+      price: 350,
+      benefit: "wi-fi enabled, learns your schedule",
+    },
     { id: "purifier", label: "air purifier", price: 650, benefit: "whole-home air purification" },
-    { id: "humidifier", label: "whole-home humidifier", price: 450, benefit: "optimal indoor humidity" },
-    { id: "warranty", label: "extended warranty", price: 500, benefit: "5-year parts and labor coverage" },
-    { id: "maintenance", label: "annual maintenance plan", price: 299, benefit: "yearly tune-up and priority service" },
-    { id: "zoning", label: "zone control system", price: 1200, benefit: "independent temperature control per zone" },
+    {
+      id: "humidifier",
+      label: "whole-home humidifier",
+      price: 450,
+      benefit: "optimal indoor humidity",
+    },
+    {
+      id: "warranty",
+      label: "extended warranty",
+      price: 500,
+      benefit: "5-year parts and labor coverage",
+    },
+    {
+      id: "maintenance",
+      label: "annual maintenance plan",
+      price: 299,
+      benefit: "yearly tune-up and priority service",
+    },
+    {
+      id: "zoning",
+      label: "zone control system",
+      price: 1200,
+      benefit: "independent temperature control per zone",
+    },
   ];
 
   const unselectedAddons = availableAddons

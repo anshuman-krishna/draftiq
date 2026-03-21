@@ -19,9 +19,7 @@ export function SelectStep({ step, value, onChange }: SelectStepProps) {
 
   return (
     <div>
-      <h2 className="mb-2 text-2xl font-bold text-neutral-900">
-        {step.title}
-      </h2>
+      <h2 className="mb-2 text-2xl font-bold text-neutral-900">{step.title}</h2>
       <p className="mb-8 text-neutral-500">{step.description}</p>
       <OptionSelector
         options={options}

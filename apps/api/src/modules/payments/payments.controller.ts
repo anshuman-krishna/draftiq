@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Body,
-  Req,
-  Headers,
-  HttpCode,
-} from "@nestjs/common";
+import { Controller, Post, Get, Body, Req, Headers, HttpCode } from "@nestjs/common";
 import { PaymentsService } from "./payments.service";
 import { CreatePaymentIntentDto } from "./dto/create-payment-intent.dto";
 import { Request } from "express";
@@ -32,14 +24,8 @@ export class PaymentsController {
 
   @Post("webhook")
   @HttpCode(200)
-  async handleWebhook(
-    @Req() req: Request,
-    @Headers("stripe-signature") signature: string,
-  ) {
+  async handleWebhook(@Req() req: Request, @Headers("stripe-signature") signature: string) {
     // raw body is set by the express raw middleware in main.ts
-    return this.paymentsService.handleWebhookEvent(
-      req.body as Buffer,
-      signature,
-    );
+    return this.paymentsService.handleWebhookEvent(req.body as Buffer, signature);
   }
 }

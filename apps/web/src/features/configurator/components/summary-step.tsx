@@ -24,16 +24,9 @@ export function SummaryStep() {
     pricing.total > 0,
   );
 
-  const { data: explanation, loading: expLoading } = useExplanation(
-    pricing,
-    pricing.total > 0,
-  );
+  const { data: explanation, loading: expLoading } = useExplanation(pricing, pricing.total > 0);
 
-  const { data: upsells, loading: upsLoading } = useUpsells(
-    answers,
-    pricing,
-    pricing.total > 0,
-  );
+  const { data: upsells, loading: upsLoading } = useUpsells(answers, pricing, pricing.total > 0);
 
   if (!schema) return null;
 
@@ -59,9 +52,7 @@ export function SummaryStep() {
     }
   }
 
-  const selectedAddons = Array.isArray(answers["add-ons"])
-    ? (answers["add-ons"] as string[])
-    : [];
+  const selectedAddons = Array.isArray(answers["add-ons"]) ? (answers["add-ons"] as string[]) : [];
 
   function handleAddUpsell(addonId: string) {
     toggleMultiSelect("add-ons", addonId);
@@ -69,12 +60,8 @@ export function SummaryStep() {
 
   return (
     <div>
-      <h2 className="mb-2 text-2xl font-bold text-neutral-900">
-        your estimate summary
-      </h2>
-      <p className="mb-8 text-neutral-500">
-        review your selections and estimated pricing below.
-      </p>
+      <h2 className="mb-2 text-2xl font-bold text-neutral-900">your estimate summary</h2>
+      <p className="mb-8 text-neutral-500">review your selections and estimated pricing below.</p>
 
       <div className="space-y-4">
         {/* ai recommendation */}
@@ -95,9 +82,7 @@ export function SummaryStep() {
               </div>
             ))}
             {selections.length === 0 && (
-              <p className="text-sm text-neutral-400">
-                no selections made yet
-              </p>
+              <p className="text-sm text-neutral-400">no selections made yet</p>
             )}
           </div>
         </div>
@@ -122,16 +107,12 @@ export function SummaryStep() {
               </div>
             ))}
             {pricing.items.length === 0 && (
-              <p className="text-sm text-neutral-400">
-                select options to see pricing
-              </p>
+              <p className="text-sm text-neutral-400">select options to see pricing</p>
             )}
             {pricing.total > 0 && (
               <div className="border-t border-neutral-200 pt-3">
                 <div className="flex justify-between">
-                  <span className="text-sm font-semibold text-neutral-900">
-                    estimated total
-                  </span>
+                  <span className="text-sm font-semibold text-neutral-900">estimated total</span>
                   <span className="text-xl font-bold text-neutral-900">
                     {formatPrice(pricing.total)}
                   </span>

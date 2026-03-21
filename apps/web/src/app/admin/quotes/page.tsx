@@ -17,18 +17,14 @@ function QuoteStatusBadge({ status }: { status: string }) {
 }
 
 export default function QuotesPage() {
-  const { data: quotes, loading } = useAdminData(
-    useCallback(() => fetchQuotes(), []),
-  );
+  const { data: quotes, loading } = useAdminData(useCallback(() => fetchQuotes(), []));
 
   const columns = [
     {
       key: "id",
       header: "id",
       render: (row: AdminQuote) => (
-        <span className="font-mono text-xs text-neutral-500">
-          {row.id.slice(0, 8)}
-        </span>
+        <span className="font-mono text-xs text-neutral-500">{row.id.slice(0, 8)}</span>
       ),
     },
     {
@@ -40,9 +36,7 @@ export default function QuotesPage() {
       key: "totalPrice",
       header: "total",
       render: (row: AdminQuote) => (
-        <span className="font-semibold">
-          ${parseFloat(row.totalPrice).toLocaleString()}
-        </span>
+        <span className="font-semibold">${parseFloat(row.totalPrice).toLocaleString()}</span>
       ),
     },
     {

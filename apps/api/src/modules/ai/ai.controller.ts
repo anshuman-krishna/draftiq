@@ -14,10 +14,7 @@ export class AiController {
 
   @Post("recommend")
   async recommend(@Body() dto: AiRequestDto) {
-    const result = await this.aiService.recommendPackage(
-      dto.answers,
-      dto.breakdown,
-    );
+    const result = await this.aiService.recommendPackage(dto.answers, dto.breakdown);
     return result ?? { error: "ai unavailable" };
   }
 
@@ -29,10 +26,7 @@ export class AiController {
 
   @Post("upsell")
   async upsell(@Body() dto: AiRequestDto) {
-    const result = await this.aiService.suggestUpsells(
-      dto.answers,
-      dto.breakdown,
-    );
+    const result = await this.aiService.suggestUpsells(dto.answers, dto.breakdown);
     return result ?? { error: "ai unavailable" };
   }
 
@@ -44,44 +38,31 @@ export class AiController {
 
   @Get("drop-off-risks")
   async getDropOffRisks(@Query("days") days?: string) {
-    return this.predictionService.detectDropOffRisks(
-      days ? parseInt(days) : undefined,
-    );
+    return this.predictionService.detectDropOffRisks(days ? parseInt(days) : undefined);
   }
 
   @Get("insights")
   async getInsights(@Query("days") days?: string) {
-    return this.predictionService.generateInsights(
-      days ? parseInt(days) : undefined,
-    );
+    return this.predictionService.generateInsights(days ? parseInt(days) : undefined);
   }
 
   @Post("ab/assign")
   async assignVariant(
     @Body() body: { testId: string; sessionId: string; variants: { id: string; weight: number }[] },
   ) {
-    const variant = this.abTestService.assignVariant(
-      body.testId,
-      body.sessionId,
-      body.variants,
-    );
+    const variant = this.abTestService.assignVariant(body.testId, body.sessionId, body.variants);
     await this.abTestService.trackImpression(body.testId, variant, body.sessionId);
     return { variant };
   }
 
   @Post("ab/convert")
-  async trackConversion(
-    @Body() body: { testId: string; variant: string; sessionId: string },
-  ) {
+  async trackConversion(@Body() body: { testId: string; variant: string; sessionId: string }) {
     await this.abTestService.trackConversion(body.testId, body.variant, body.sessionId);
     return { tracked: true };
   }
 
   @Get("ab/results")
-  async getAbResults(
-    @Query("testId") testId: string,
-    @Query("days") days?: string,
-  ) {
+  async getAbResults(@Query("testId") testId: string, @Query("days") days?: string) {
     if (!testId) return { error: "testId required" };
     return this.abTestService.getResults(testId, days ? parseInt(days) : undefined);
   }

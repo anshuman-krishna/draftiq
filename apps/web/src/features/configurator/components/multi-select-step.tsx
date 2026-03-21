@@ -11,22 +11,13 @@ interface MultiSelectStepProps {
   onToggle: (optionId: string) => void;
 }
 
-export function MultiSelectStep({
-  step,
-  selected,
-  onToggle,
-}: MultiSelectStepProps) {
+export function MultiSelectStep({ step, selected, onToggle }: MultiSelectStepProps) {
   const pricingConfig = useConfiguratorStore((s) => s.pricingConfig);
-  const columns =
-    step.columns === 2
-      ? "grid-cols-1 sm:grid-cols-2"
-      : "grid-cols-1 sm:grid-cols-3";
+  const columns = step.columns === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3";
 
   return (
     <div>
-      <h2 className="mb-2 text-2xl font-bold text-neutral-900">
-        {step.title}
-      </h2>
+      <h2 className="mb-2 text-2xl font-bold text-neutral-900">{step.title}</h2>
       <p className="mb-8 text-neutral-500">{step.description}</p>
       <div className={`grid gap-3 ${columns}`}>
         {(step.options ?? []).map((option, index) => {
@@ -52,9 +43,7 @@ export function MultiSelectStep({
               {option.badge && (
                 <span
                   className={`absolute -top-2.5 right-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                    isSelected
-                      ? "bg-neutral-900 text-white"
-                      : "bg-primary text-white"
+                    isSelected ? "bg-neutral-900 text-white" : "bg-primary text-white"
                   }`}
                 >
                   {option.badge}
@@ -62,28 +51,18 @@ export function MultiSelectStep({
               )}
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-neutral-900">
-                    {option.label}
-                  </p>
+                  <p className="text-sm font-semibold text-neutral-900">{option.label}</p>
                   {option.description && (
-                    <p className="mt-1 text-xs text-neutral-500">
-                      {option.description}
-                    </p>
+                    <p className="mt-1 text-xs text-neutral-500">{option.description}</p>
                   )}
                 </div>
                 <div className="ml-3 flex flex-col items-end gap-2">
-                  {price && (
-                    <span className="text-sm font-semibold text-neutral-900">
-                      {price}
-                    </span>
-                  )}
+                  {price && <span className="text-sm font-semibold text-neutral-900">{price}</span>}
                   <motion.div
                     animate={isSelected ? { scale: [1, 1.15, 1] } : { scale: 1 }}
                     transition={{ duration: 0.3 }}
                     className={`flex h-5 w-5 items-center justify-center rounded border-2 transition-colors duration-200 ${
-                      isSelected
-                        ? "border-neutral-900 bg-neutral-900"
-                        : "border-neutral-300"
+                      isSelected ? "border-neutral-900 bg-neutral-900" : "border-neutral-300"
                     }`}
                   >
                     {isSelected && (

@@ -38,7 +38,12 @@ export function DataTable<T extends { id?: string }>({
     return (
       <div className="flex flex-col items-center justify-center py-16 text-neutral-400">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="mb-3 opacity-40">
-          <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path
+            d="M3 7h18M3 12h18M3 17h18"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
         <p className="text-sm">{emptyMessage}</p>
       </div>
@@ -70,7 +75,7 @@ export function DataTable<T extends { id?: string }>({
                 <td key={col.key} className={`px-4 py-3 ${col.className ?? ""}`}>
                   {col.render
                     ? col.render(row)
-                    : ((row as Record<string, unknown>)[col.key] as React.ReactNode) ?? "—"}
+                    : (((row as Record<string, unknown>)[col.key] as React.ReactNode) ?? "—")}
                 </td>
               ))}
             </tr>

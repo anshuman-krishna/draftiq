@@ -3,7 +3,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import type { Prisma } from "@prisma/client";
 
 // ordered funnel steps for conversion calculation
-const FUNNEL_STEPS = [
+export const FUNNEL_STEPS = [
   "step_view:home-size",
   "step_view:system-type",
   "step_view:duct-condition",
@@ -21,10 +21,10 @@ const FUNNEL_LABELS: Record<string, string> = {
   "step_view:duct-condition": "duct condition",
   "step_view:add-ons": "add-ons",
   "step_view:summary": "summary",
-  "booking_started": "booking started",
-  "booking_completed": "booking completed",
-  "payment_started": "payment started",
-  "payment_completed": "payment completed",
+  booking_started: "booking started",
+  booking_completed: "booking completed",
+  payment_started: "payment started",
+  payment_completed: "payment completed",
 };
 
 interface FunnelStep {
@@ -94,10 +94,8 @@ export class AnalyticsService {
       const count = countMap.get(step) ?? 0;
       const firstCount = countMap.get(FUNNEL_STEPS[0]) ?? 1;
 
-      const conversionRate =
-        firstCount > 0 ? Math.round((count / firstCount) * 100) : 0;
-      const dropOff =
-        i === 0 ? 0 : previousCount > 0 ? previousCount - count : 0;
+      const conversionRate = firstCount > 0 ? Math.round((count / firstCount) * 100) : 0;
+      const dropOff = i === 0 ? 0 : previousCount > 0 ? previousCount - count : 0;
 
       funnel.push({
         step,
@@ -136,20 +134,13 @@ export class AnalyticsService {
       }),
     ]);
 
-    const totalRevenue = payments.reduce(
-      (sum, p) => sum + Number(p.amount),
-      0,
-    );
+    const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
     const totalPayments = payments.length;
     const avgOrderValue =
-      totalPayments > 0
-        ? Math.round((totalRevenue / totalPayments) * 100) / 100
-        : 0;
+      totalPayments > 0 ? Math.round((totalRevenue / totalPayments) * 100) / 100 : 0;
     const totalSessions = sessionCount.length;
     const conversionRate =
-      totalSessions > 0
-        ? Math.round((totalPayments / totalSessions) * 100 * 10) / 10
-        : 0;
+      totalSessions > 0 ? Math.round((totalPayments / totalSessions) * 100 * 10) / 10 : 0;
 
     return {
       totalRevenue: Math.round(totalRevenue * 100) / 100,

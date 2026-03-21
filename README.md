@@ -234,6 +234,28 @@ the admin dashboard visualizes this data
 
 ---
 
+## predictive intelligence
+
+the system uses analytics data to generate actionable insights
+
+* conversion probability scoring per session
+* drop-off risk detection across funnel steps
+* automated recommendations for reducing friction
+* a/b testing with deterministic variant assignment
+
+---
+
+## multi-tenant
+
+draftiq supports multiple businesses from a single deployment
+
+* tenant resolution from subdomain, header, or query parameter
+* data isolation via tenant scoping on all models
+* white-label branding with dynamic theming
+* per-tenant configuration and settings
+
+---
+
 ## visual system
 
 the ui is built around a glassmorphism design
@@ -247,6 +269,46 @@ subtle animations
 interactions are designed to feel smooth and responsive
 
 not flashy, but refined
+
+---
+
+## getting started
+
+prerequisites: node >= 18, pnpm, mysql
+
+```bash
+# install dependencies
+pnpm install
+
+# set up environment
+cp .env.example .env
+cp apps/api/.env.example apps/api/.env
+# edit apps/api/.env with your database url and api keys
+
+# run database migrations
+pnpm db:migrate
+
+# seed sample data
+pnpm db:seed
+
+# start development servers
+pnpm dev
+```
+
+the frontend runs on http://localhost:3000
+
+the api runs on http://localhost:4000
+
+available scripts
+
+```
+pnpm dev          # start both frontend and api
+pnpm build        # build both projects
+pnpm lint         # type check all packages
+pnpm format       # format with prettier
+pnpm db:migrate   # run prisma migrations
+pnpm db:seed      # seed the database
+```
 
 ---
 

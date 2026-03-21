@@ -2,6 +2,8 @@ import { create } from "zustand";
 import type { PaymentIntentResponse } from "@/lib/api";
 import { createPaymentIntent as createPaymentIntentApi } from "@/lib/api";
 
+const DEPOSIT_RATE = 0.2;
+
 interface PaymentState {
   // data
   clientSecret: string | null;
@@ -13,11 +15,7 @@ interface PaymentState {
 
   // actions
   setPaymentType: (type: "deposit" | "full") => void;
-  createIntent: (
-    amount: number,
-    bookingId?: string,
-    quoteId?: string,
-  ) => Promise<void>;
+  createIntent: (amount: number, bookingId?: string, quoteId?: string) => Promise<void>;
   setProcessing: () => void;
   setSucceeded: () => void;
   setFailed: (error: string) => void;
@@ -36,7 +34,8 @@ export const usePaymentStore = create<PaymentState>((set, get) => ({
 
   createIntent: async (amount, bookingId, quoteId) => {
     const { paymentType } = get();
-    const finalAmount = paymentType === "deposit" ? Math.round(amount * 0.2 * 100) / 100 : amount;
+    const finalAmount =
+      paymentType === "deposit" ? Math.round(amount * DEPOSIT_RATE * 100) / 100 : amount;
 
     set({ paymentStatus: "creating", error: null, paymentAmount: finalAmount });
 

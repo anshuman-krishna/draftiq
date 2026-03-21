@@ -2,27 +2,17 @@
 
 import { useCallback } from "react";
 import { DataTable, Badge } from "@/features/admin/components";
-import {
-  fetchBookings,
-  updateBookingStatus,
-  type AdminBooking,
-} from "@/features/admin/api";
+import { fetchBookings, updateBookingStatus, type AdminBooking } from "@/features/admin/api";
 import { useAdminData } from "@/features/admin/use-admin-data";
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
-    status === "CONFIRMED"
-      ? "success"
-      : status === "CANCELLED"
-        ? "danger"
-        : "warning";
+    status === "CONFIRMED" ? "success" : status === "CANCELLED" ? "danger" : "warning";
   return <Badge variant={variant}>{status.toLowerCase()}</Badge>;
 }
 
 export default function BookingsPage() {
-  const { data: bookings, loading, refresh } = useAdminData(
-    useCallback(() => fetchBookings(), []),
-  );
+  const { data: bookings, loading, refresh } = useAdminData(useCallback(() => fetchBookings(), []));
 
   async function handleStatusChange(id: string, status: string) {
     await updateBookingStatus(id, status);
@@ -56,10 +46,12 @@ export default function BookingsPage() {
         const p = row.payments[0];
         return (
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">
-              ${parseFloat(p.amount).toLocaleString()}
-            </span>
-            <Badge variant={p.status === "SUCCEEDED" ? "success" : p.status === "FAILED" ? "danger" : "warning"}>
+            <span className="text-sm font-medium">${parseFloat(p.amount).toLocaleString()}</span>
+            <Badge
+              variant={
+                p.status === "SUCCEEDED" ? "success" : p.status === "FAILED" ? "danger" : "warning"
+              }
+            >
               {p.status.toLowerCase()}
             </Badge>
           </div>

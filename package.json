@@ -2,12 +2,16 @@
   "name": "draftiq",
   "private": true,
   "scripts": {
+    "dev": "pnpm run dev:web & pnpm run dev:api",
     "dev:web": "pnpm --filter @draftiq/web dev",
     "dev:api": "pnpm --filter @draftiq/api start:dev",
-    "dev": "pnpm run dev:web & pnpm run dev:api",
+    "build": "pnpm run build:api && pnpm run build:web",
     "build:web": "pnpm --filter @draftiq/web build",
     "build:api": "pnpm --filter @draftiq/api build",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format",
+    "db:migrate": "pnpm --filter @draftiq/api prisma:migrate",
+    "db:seed": "pnpm --filter @draftiq/api prisma:seed"
   },
   "engines": {
     "node": ">=18"
@@ -21,5 +25,8 @@
       "sharp",
       "unrs-resolver"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
   }
 }

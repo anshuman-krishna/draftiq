@@ -6,37 +6,26 @@ import { fetchPayments, type AdminPayment } from "@/features/admin/api";
 import { useAdminData } from "@/features/admin/use-admin-data";
 
 function PaymentStatusBadge({ status }: { status: string }) {
-  const variant =
-    status === "SUCCEEDED"
-      ? "success"
-      : status === "FAILED"
-        ? "danger"
-        : "warning";
+  const variant = status === "SUCCEEDED" ? "success" : status === "FAILED" ? "danger" : "warning";
   return <Badge variant={variant}>{status.toLowerCase()}</Badge>;
 }
 
 export default function PaymentsPage() {
-  const { data: payments, loading } = useAdminData(
-    useCallback(() => fetchPayments(), []),
-  );
+  const { data: payments, loading } = useAdminData(useCallback(() => fetchPayments(), []));
 
   const columns = [
     {
       key: "id",
       header: "id",
       render: (row: AdminPayment) => (
-        <span className="font-mono text-xs text-neutral-500">
-          {row.id.slice(0, 8)}
-        </span>
+        <span className="font-mono text-xs text-neutral-500">{row.id.slice(0, 8)}</span>
       ),
     },
     {
       key: "amount",
       header: "amount",
       render: (row: AdminPayment) => (
-        <span className="font-semibold">
-          ${parseFloat(row.amount).toLocaleString()}
-        </span>
+        <span className="font-semibold">${parseFloat(row.amount).toLocaleString()}</span>
       ),
     },
     { key: "currency", header: "currency", className: "uppercase" },
@@ -66,9 +55,7 @@ export default function PaymentsPage() {
       header: "stripe id",
       render: (row: AdminPayment) =>
         row.stripeId ? (
-          <span className="font-mono text-xs text-neutral-500">
-            {row.stripeId.slice(0, 16)}...
-          </span>
+          <span className="font-mono text-xs text-neutral-500">{row.stripeId.slice(0, 16)}...</span>
         ) : (
           <span className="text-neutral-400">—</span>
         ),

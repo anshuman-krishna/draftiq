@@ -17,12 +17,7 @@ interface OptionSelectorProps {
   columns?: 2 | 3;
 }
 
-export function OptionSelector({
-  options,
-  value,
-  onChange,
-  columns = 3,
-}: OptionSelectorProps) {
+export function OptionSelector({ options, value, onChange, columns = 3 }: OptionSelectorProps) {
   const gridCols = columns === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3";
 
   return (
@@ -47,9 +42,7 @@ export function OptionSelector({
             {option.badge && (
               <span
                 className={`absolute -top-2.5 right-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                  isSelected
-                    ? "bg-neutral-900 text-white"
-                    : "bg-primary text-white"
+                  isSelected ? "bg-neutral-900 text-white" : "bg-primary text-white"
                 }`}
               >
                 {option.badge}
@@ -60,9 +53,7 @@ export function OptionSelector({
                 animate={isSelected ? { scale: [1, 1.15, 1] } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
                 className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                  isSelected
-                    ? "border-neutral-900 bg-neutral-900"
-                    : "border-neutral-300"
+                  isSelected ? "border-neutral-900 bg-neutral-900" : "border-neutral-300"
                 }`}
               >
                 {isSelected && (
@@ -81,9 +72,7 @@ export function OptionSelector({
                   {option.label}
                 </p>
                 {option.description && (
-                  <p className="mt-1 text-xs text-neutral-500">
-                    {option.description}
-                  </p>
+                  <p className="mt-1 text-xs text-neutral-500">{option.description}</p>
                 )}
               </div>
             </div>

@@ -59,13 +59,7 @@ export function RecommendationCard({ data, loading }: RecommendationCardProps) {
       className={`rounded-2xl border ${tier.border} bg-white/60 p-5`}
     >
       <div className="flex items-center gap-2 mb-1">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          className={tier.color}
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className={tier.color}>
           <path
             d={tier.icon}
             stroke="currentColor"
@@ -79,13 +73,9 @@ export function RecommendationCard({ data, loading }: RecommendationCardProps) {
         </span>
       </div>
 
-      <h4 className="text-sm font-semibold text-neutral-900 mb-1">
-        {data.title}
-      </h4>
+      <h4 className="text-sm font-semibold text-neutral-900 mb-1">{data.title}</h4>
 
-      <p className="text-sm text-neutral-600 leading-relaxed">
-        {data.reasoning}
-      </p>
+      <p className="text-sm text-neutral-600 leading-relaxed">{data.reasoning}</p>
     </motion.div>
   );
 }

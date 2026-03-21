@@ -11,9 +11,11 @@ import {
 import { useAdminData } from "@/features/admin/use-admin-data";
 
 export default function AvailabilityPage() {
-  const { data: days, loading, refresh } = useAdminData(
-    useCallback(() => fetchAllAvailability(), []),
-  );
+  const {
+    data: days,
+    loading,
+    refresh,
+  } = useAdminData(useCallback(() => fetchAllAvailability(), []));
   const [editing, setEditing] = useState<AdminAvailability | null>(null);
   const [formSlots, setFormSlots] = useState("6");
   const [saving, setSaving] = useState(false);
@@ -49,9 +51,7 @@ export default function AvailabilityPage() {
     {
       key: "totalSlots",
       header: "total slots",
-      render: (row: AdminAvailability) => (
-        <span className="font-semibold">{row.totalSlots}</span>
-      ),
+      render: (row: AdminAvailability) => <span className="font-semibold">{row.totalSlots}</span>,
     },
     {
       key: "booked",
@@ -63,13 +63,7 @@ export default function AvailabilityPage() {
           <div className="flex items-center gap-2">
             <span>{booked}</span>
             <Badge
-              variant={
-                utilization >= 1
-                  ? "danger"
-                  : utilization >= 0.7
-                    ? "warning"
-                    : "success"
-              }
+              variant={utilization >= 1 ? "danger" : utilization >= 0.7 ? "warning" : "success"}
             >
               {Math.round(utilization * 100)}%
             </Badge>
@@ -82,11 +76,7 @@ export default function AvailabilityPage() {
       header: "remaining",
       render: (row: AdminAvailability) => {
         const remaining = row.totalSlots - row._count.bookings;
-        return (
-          <span className={remaining === 0 ? "text-red-500" : ""}>
-            {remaining}
-          </span>
-        );
+        return <span className={remaining === 0 ? "text-red-500" : ""}>{remaining}</span>;
       },
     },
     {
@@ -114,16 +104,10 @@ export default function AvailabilityPage() {
         />
       </div>
 
-      <Modal
-        open={!!editing}
-        onClose={() => setEditing(null)}
-        title="edit availability"
-      >
+      <Modal open={!!editing} onClose={() => setEditing(null)} title="edit availability">
         <div className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              date
-            </label>
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">date</label>
             <p className="rounded-lg bg-neutral-50 px-3 py-2 text-sm text-neutral-600">
               {editing &&
                 new Date(editing.date).toLocaleDateString("en-US", {
@@ -135,9 +119,7 @@ export default function AvailabilityPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              total slots
-            </label>
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">total slots</label>
             <Input
               type="number"
               min="0"

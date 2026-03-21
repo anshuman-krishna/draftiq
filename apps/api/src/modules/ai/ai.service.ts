@@ -71,9 +71,7 @@ export class AiService {
     return result;
   }
 
-  async explainPricing(
-    breakdown: PriceBreakdown,
-  ): Promise<ExplanationResult | null> {
+  async explainPricing(breakdown: PriceBreakdown): Promise<ExplanationResult | null> {
     const cacheKey = `explain:${this.hash(breakdown)}`;
     const cached = this.getFromCache<ExplanationResult>(cacheKey);
     if (cached) return cached;
@@ -105,7 +103,11 @@ export class AiService {
       const response = await this.client.chat.completions.create({
         model: this.model,
         messages: [
-          { role: "system", content: "you are a helpful hvac advisor. respond only in valid JSON. no markdown, no code fences." },
+          {
+            role: "system",
+            content:
+              "you are a helpful hvac advisor. respond only in valid JSON. no markdown, no code fences.",
+          },
           { role: "user", content: prompt },
         ],
         temperature: 0.3,

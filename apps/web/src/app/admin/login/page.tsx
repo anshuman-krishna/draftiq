@@ -46,9 +46,7 @@ export default function AdminLoginPage() {
       >
         <div className="text-center">
           <h1 className="text-2xl font-bold text-neutral-900">draftiq admin</h1>
-          <p className="mt-2 text-sm text-neutral-500">
-            enter your admin password to continue
-          </p>
+          <p className="mt-2 text-sm text-neutral-500">enter your admin password to continue</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -60,15 +58,9 @@ export default function AdminLoginPage() {
             autoFocus
           />
 
-          {error && (
-            <p className="text-center text-sm text-red-500">{error}</p>
-          )}
+          {error && <p className="text-center text-sm text-red-500">{error}</p>}
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading || !password}
-          >
+          <Button type="submit" className="w-full" disabled={loading || !password}>
             {loading ? "signing in..." : "sign in"}
           </Button>
         </form>

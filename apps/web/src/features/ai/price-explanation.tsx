@@ -22,13 +22,7 @@ export function PriceExplanation({ data, loading }: PriceExplanationProps) {
         className="flex w-full items-center justify-between px-5 py-4 text-left"
       >
         <div className="flex items-center gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="text-neutral-500"
-          >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral-500">
             <path
               d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01"
               stroke="currentColor"
@@ -38,9 +32,7 @@ export function PriceExplanation({ data, loading }: PriceExplanationProps) {
             />
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
           </svg>
-          <span className="text-sm font-medium text-neutral-700">
-            why this price?
-          </span>
+          <span className="text-sm font-medium text-neutral-700">why this price?</span>
           {loading && (
             <div className="h-3 w-3 animate-spin rounded-full border-2 border-neutral-300 border-t-neutral-600" />
           )}
@@ -75,19 +67,13 @@ export function PriceExplanation({ data, loading }: PriceExplanationProps) {
             className="overflow-hidden"
           >
             <div className="border-t border-neutral-100 px-5 pb-5 pt-4">
-              <p className="text-sm text-neutral-600 mb-4">
-                {data.summary}
-              </p>
+              <p className="text-sm text-neutral-600 mb-4">{data.summary}</p>
 
               <div className="space-y-3">
                 {data.items.map((item) => (
                   <div key={item.label}>
-                    <p className="text-xs font-semibold text-neutral-800">
-                      {item.label}
-                    </p>
-                    <p className="text-xs text-neutral-500 leading-relaxed">
-                      {item.explanation}
-                    </p>
+                    <p className="text-xs font-semibold text-neutral-800">{item.label}</p>
+                    <p className="text-xs text-neutral-500 leading-relaxed">{item.explanation}</p>
                   </div>
                 ))}
               </div>

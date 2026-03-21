@@ -59,10 +59,7 @@ export function fetchBookings(): Promise<AdminBooking[]> {
   return fetchApi("/bookings");
 }
 
-export function updateBookingStatus(
-  id: string,
-  status: string,
-): Promise<AdminBooking> {
+export function updateBookingStatus(id: string, status: string): Promise<AdminBooking> {
   return fetchApi(`/bookings/${id}`, {
     method: "PATCH",
     body: JSON.stringify({ status }),

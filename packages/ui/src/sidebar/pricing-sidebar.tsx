@@ -38,9 +38,7 @@ export function PricingSidebar({ items, total, loading = false }: PricingSidebar
 
       <div className="mt-4 space-y-3">
         {items.length === 0 && !loading && (
-          <p className="text-sm text-neutral-400">
-            select options to see pricing
-          </p>
+          <p className="text-sm text-neutral-400">select options to see pricing</p>
         )}
         <AnimatePresence mode="popLayout">
           {items.map((item) => (
@@ -84,9 +82,7 @@ export function PricingSidebar({ items, total, loading = false }: PricingSidebar
 
           <div className="my-4 h-px bg-neutral-200" />
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-neutral-600">
-              estimated total
-            </span>
+            <span className="text-sm font-medium text-neutral-600">estimated total</span>
             <motion.span
               key={total}
               initial={{ scale: 0.9, opacity: 0.5 }}

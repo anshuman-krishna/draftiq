@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  BadRequestException,
-  ConflictException,
-} from "@nestjs/common";
+import { Injectable, BadRequestException, ConflictException } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { PrismaService } from "../../prisma/prisma.service";
 import { CRM_EVENTS } from "../integrations/crm.events";
@@ -30,10 +26,7 @@ export class BookingService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async getAvailability(
-    startDate: string,
-    endDate?: string,
-  ): Promise<DayAvailability[]> {
+  async getAvailability(startDate: string, endDate?: string): Promise<DayAvailability[]> {
     const start = new Date(startDate);
     const end = endDate ? new Date(endDate) : new Date(start);
     if (!endDate) {
@@ -176,9 +169,7 @@ export class BookingService {
     });
   }
 
-  private countBookingsBySlot(
-    bookings: { slot: string }[],
-  ): Map<string, number> {
+  private countBookingsBySlot(bookings: { slot: string }[]): Map<string, number> {
     const counts = new Map<string, number>();
     for (const booking of bookings) {
       counts.set(booking.slot, (counts.get(booking.slot) ?? 0) + 1);
@@ -186,9 +177,7 @@ export class BookingService {
     return counts;
   }
 
-  private getUrgencyLabel(
-    remaining: number,
-  ): "available" | "limited" | "last slot" | "full" {
+  private getUrgencyLabel(remaining: number): "available" | "limited" | "last slot" | "full" {
     if (remaining === 0) return "full";
     if (remaining === 1) return "last slot";
     if (remaining <= 2) return "limited";

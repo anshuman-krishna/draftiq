@@ -38,12 +38,8 @@ export function PaymentStep() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-neutral-900">
-        secure your booking
-      </h2>
-      <p className="mt-2 text-neutral-500">
-        choose a payment option and complete your order.
-      </p>
+      <h2 className="text-2xl font-bold text-neutral-900">secure your booking</h2>
+      <p className="mt-2 text-neutral-500">choose a payment option and complete your order.</p>
 
       {/* price breakdown recap */}
       <div className="mt-6 rounded-2xl border border-neutral-200 bg-white/60 p-5">
@@ -52,22 +48,15 @@ export function PaymentStep() {
         </p>
         <div className="mt-3 space-y-2">
           {pricing.items.map((item) => (
-            <div
-              key={item.label}
-              className="flex items-center justify-between text-sm"
-            >
+            <div key={item.label} className="flex items-center justify-between text-sm">
               <span className="text-neutral-600">{item.label}</span>
-              <span className="font-medium text-neutral-900">
-                {formatPrice(item.price)}
-              </span>
+              <span className="font-medium text-neutral-900">{formatPrice(item.price)}</span>
             </div>
           ))}
           <div className="border-t border-neutral-100 pt-2">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-neutral-900">total</span>
-              <span className="text-lg font-bold text-neutral-900">
-                {formatPrice(total)}
-              </span>
+              <span className="text-lg font-bold text-neutral-900">{formatPrice(total)}</span>
             </div>
           </div>
         </div>
@@ -136,9 +125,7 @@ export function PaymentStep() {
         animate={{ scale: 1 }}
       >
         <p className="text-xs text-neutral-400">paying now</p>
-        <p className="text-2xl font-bold text-neutral-900">
-          {formatPrice(displayAmount)}
-        </p>
+        <p className="text-2xl font-bold text-neutral-900">{formatPrice(displayAmount)}</p>
         {paymentType === "deposit" && (
           <p className="mt-1 text-xs text-neutral-400">
             remaining {formatPrice(total - depositAmount)} due at installation
@@ -151,9 +138,7 @@ export function PaymentStep() {
         {paymentStatus === "creating" && (
           <div className="flex flex-col items-center py-8">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-neutral-200 border-t-neutral-900" />
-            <p className="mt-3 text-sm text-neutral-500">
-              setting up secure payment...
-            </p>
+            <p className="mt-3 text-sm text-neutral-500">setting up secure payment...</p>
           </div>
         )}
 

@@ -9,8 +9,7 @@ export const hvacSchema: ConfiguratorSchema = {
       id: "home-size",
       type: "select",
       title: "how big is your home?",
-      description:
-        "this helps us determine the right system size for your space.",
+      description: "this helps us determine the right system size for your space.",
       columns: 2,
       defaultValue: "medium",
       options: [
@@ -46,8 +45,7 @@ export const hvacSchema: ConfiguratorSchema = {
       id: "system-type",
       type: "select",
       title: "choose your system",
-      description:
-        "select the tier that fits your comfort and budget needs.",
+      description: "select the tier that fits your comfort and budget needs.",
       columns: 3,
       defaultValue: "high-efficiency",
       options: [
@@ -68,8 +66,7 @@ export const hvacSchema: ConfiguratorSchema = {
         {
           id: "premium",
           label: "premium",
-          description:
-            "top-tier performance — whisper quiet, maximum comfort",
+          description: "top-tier performance — whisper quiet, maximum comfort",
           pricingKey: "system:premium",
         },
       ],
@@ -78,8 +75,7 @@ export const hvacSchema: ConfiguratorSchema = {
       id: "duct-condition",
       type: "select",
       title: "what condition are your ducts in?",
-      description:
-        "ductwork condition affects installation cost and system performance.",
+      description: "ductwork condition affects installation cost and system performance.",
       columns: 2,
       options: [
         {
@@ -184,9 +180,24 @@ export const hvacPricing: PricingConfig = {
     "base:xlarge": { key: "base:xlarge", label: "base installation", type: "fixed", value: 8200 },
 
     // system tier upgrades
-    "system:standard": { key: "system:standard", label: "standard system", type: "fixed", value: 0 },
-    "system:high-efficiency": { key: "system:high-efficiency", label: "high efficiency upgrade", type: "fixed", value: 1800 },
-    "system:premium": { key: "system:premium", label: "premium upgrade", type: "fixed", value: 3500 },
+    "system:standard": {
+      key: "system:standard",
+      label: "standard system",
+      type: "fixed",
+      value: 0,
+    },
+    "system:high-efficiency": {
+      key: "system:high-efficiency",
+      label: "high efficiency upgrade",
+      type: "fixed",
+      value: 1800,
+    },
+    "system:premium": {
+      key: "system:premium",
+      label: "premium upgrade",
+      type: "fixed",
+      value: 3500,
+    },
 
     // ductwork
     "duct:good": { key: "duct:good", label: "ductwork — good", type: "fixed", value: 0 },
@@ -195,12 +206,37 @@ export const hvacPricing: PricingConfig = {
     "duct:replace": { key: "duct:replace", label: "duct replacement", type: "fixed", value: 3200 },
 
     // add-ons
-    "addon:thermostat": { key: "addon:thermostat", label: "smart thermostat", type: "fixed", value: 350 },
+    "addon:thermostat": {
+      key: "addon:thermostat",
+      label: "smart thermostat",
+      type: "fixed",
+      value: 350,
+    },
     "addon:purifier": { key: "addon:purifier", label: "air purifier", type: "fixed", value: 650 },
-    "addon:humidifier": { key: "addon:humidifier", label: "whole-home humidifier", type: "fixed", value: 450 },
-    "addon:warranty": { key: "addon:warranty", label: "extended warranty", type: "fixed", value: 500 },
-    "addon:maintenance": { key: "addon:maintenance", label: "annual maintenance plan", type: "fixed", value: 299 },
-    "addon:zoning": { key: "addon:zoning", label: "zone control system", type: "fixed", value: 1200 },
+    "addon:humidifier": {
+      key: "addon:humidifier",
+      label: "whole-home humidifier",
+      type: "fixed",
+      value: 450,
+    },
+    "addon:warranty": {
+      key: "addon:warranty",
+      label: "extended warranty",
+      type: "fixed",
+      value: 500,
+    },
+    "addon:maintenance": {
+      key: "addon:maintenance",
+      label: "annual maintenance plan",
+      type: "fixed",
+      value: 299,
+    },
+    "addon:zoning": {
+      key: "addon:zoning",
+      label: "zone control system",
+      type: "fixed",
+      value: 1200,
+    },
   },
 
   tierMultipliers: {

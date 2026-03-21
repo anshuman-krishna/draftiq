@@ -1,6 +1,7 @@
-export function buildExplanationPrompt(
-  breakdown: { items: { label: string; price: number }[]; total: number },
-): string {
+export function buildExplanationPrompt(breakdown: {
+  items: { label: string; price: number }[];
+  total: number;
+}): string {
   const priceLines = breakdown.items
     .map((item) => `- ${item.label}: $${item.price.toLocaleString()}`)
     .join("\n");

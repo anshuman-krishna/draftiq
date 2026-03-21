@@ -10,16 +10,13 @@ interface AnimatedPriceProps {
   prefix?: string;
 }
 
-export function AnimatedPrice({
-  value,
-  className = "",
-  prefix = "$",
-}: AnimatedPriceProps) {
+export function AnimatedPrice({ value, className = "", prefix = "$" }: AnimatedPriceProps) {
   const motionValue = useMotionValue(0);
   const prevValue = useRef(0);
 
-  const display = useTransform(motionValue, (current) =>
-    `${prefix}${Math.round(current).toLocaleString()}`,
+  const display = useTransform(
+    motionValue,
+    (current) => `${prefix}${Math.round(current).toLocaleString()}`,
   );
 
   useEffect(() => {

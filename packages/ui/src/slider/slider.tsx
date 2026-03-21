@@ -13,24 +13,13 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       <div className="flex flex-col gap-3">
         {(label || displayValue) && (
           <div className="flex items-center justify-between">
-            {label && (
-              <label className="text-sm font-medium text-neutral-600">
-                {label}
-              </label>
-            )}
+            {label && <label className="text-sm font-medium text-neutral-600">{label}</label>}
             {displayValue && (
-              <span className="text-sm font-semibold text-neutral-900">
-                {displayValue}
-              </span>
+              <span className="text-sm font-semibold text-neutral-900">{displayValue}</span>
             )}
           </div>
         )}
-        <input
-          ref={ref}
-          type="range"
-          className={`w-full ${className}`}
-          {...props}
-        />
+        <input ref={ref} type="range" className={`w-full ${className}`} {...props} />
       </div>
     );
   },

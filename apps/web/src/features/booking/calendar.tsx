@@ -24,9 +24,7 @@ function formatDay(dateStr: string) {
 function getDayStatus(day: DayAvailability) {
   const available = day.slots.some((s) => s.remaining > 0);
   if (!available) return "full";
-  const hasUrgent = day.slots.some(
-    (s) => s.label === "last slot" || s.label === "limited",
-  );
+  const hasUrgent = day.slots.some((s) => s.label === "last slot" || s.label === "limited");
   return hasUrgent ? "limited" : "available";
 }
 
@@ -57,15 +55,9 @@ export function Calendar({ days, selectedDate, onSelect }: CalendarProps) {
                 : isFull
                   ? "cursor-not-allowed bg-neutral-100 text-neutral-300"
                   : "bg-white/60 text-neutral-700 hover:bg-white/80 hover:shadow-sm"
-            } border ${
-              isSelected
-                ? "border-neutral-900"
-                : "border-neutral-200"
-            }`}
+            } border ${isSelected ? "border-neutral-900" : "border-neutral-200"}`}
           >
-            <span className="text-[10px] uppercase tracking-wider opacity-60">
-              {dayName}
-            </span>
+            <span className="text-[10px] uppercase tracking-wider opacity-60">{dayName}</span>
             <span className="mt-0.5 text-lg font-bold">{dayNum}</span>
             <span className="text-[10px] opacity-60">{monthShort}</span>
 

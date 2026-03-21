@@ -45,9 +45,7 @@ export class TenantService {
         name: data.name,
         slug: data.slug,
         domain: data.domain ?? null,
-        settings: data.settings
-          ? (data.settings as unknown as Prisma.InputJsonValue)
-          : undefined,
+        settings: data.settings ? (data.settings as unknown as Prisma.InputJsonValue) : undefined,
       },
     });
 

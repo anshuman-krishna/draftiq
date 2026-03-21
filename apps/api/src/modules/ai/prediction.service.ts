@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service";
+import { FUNNEL_STEPS } from "../analytics/analytics.service";
 
 interface ConversionPrediction {
   probability: number;
@@ -88,8 +89,7 @@ export class PredictionService {
     }
 
     const probability = Math.max(5, Math.min(95, score));
-    const risk =
-      probability >= 60 ? "low" : probability >= 35 ? "medium" : "high";
+    const risk = probability >= 60 ? "low" : probability >= 35 ? "medium" : "high";
 
     return { probability, risk, signals };
   }
@@ -98,17 +98,7 @@ export class PredictionService {
     const since = new Date();
     since.setDate(since.getDate() - days);
 
-    const funnelSteps = [
-      "step_view:home-size",
-      "step_view:system-type",
-      "step_view:duct-condition",
-      "step_view:add-ons",
-      "step_view:summary",
-      "booking_started",
-      "booking_completed",
-      "payment_started",
-      "payment_completed",
-    ];
+    const funnelSteps = [...FUNNEL_STEPS];
 
     const events = await this.prisma.analyticsEvent.groupBy({
       by: ["eventType"],
@@ -135,13 +125,9 @@ export class PredictionService {
       const dropOffRate = Math.round(((prev - curr) / prev) * 100);
 
       if (dropOffRate > 20) {
-        const riskLevel =
-          dropOffRate > 50 ? "high" : dropOffRate > 35 ? "medium" : "low";
+        const riskLevel = dropOffRate > 50 ? "high" : dropOffRate > 35 ? "medium" : "low";
 
-        const recommendation = this.getDropOffRecommendation(
-          funnelSteps[i],
-          dropOffRate,
-        );
+        const recommendation = this.getDropOffRecommendation(funnelSteps[i], dropOffRate);
 
         risks.push({
           step: funnelSteps[i],
@@ -233,9 +219,8 @@ export class PredictionService {
 
     const totalRevenue = allPayments.reduce((s, p) => s + Number(p.amount), 0);
     const recentRevenue = recentPayments.reduce((s, p) => s + Number(p.amount), 0);
-    const avgOrderValue = allPayments.length > 0
-      ? Math.round(totalRevenue / allPayments.length)
-      : 0;
+    const avgOrderValue =
+      allPayments.length > 0 ? Math.round(totalRevenue / allPayments.length) : 0;
 
     const olderRevenue = totalRevenue - recentRevenue;
     const trend = recentRevenue > olderRevenue ? 1 : recentRevenue < olderRevenue ? -1 : 0;
@@ -251,23 +236,29 @@ export class PredictionService {
       _count: { id: true },
     });
 
-    const conversionRate = sessions.length > 0
-      ? Math.round((allPayments.length / sessions.length) * 100 * 10) / 10
-      : 0;
+    const conversionRate =
+      sessions.length > 0 ? Math.round((allPayments.length / sessions.length) * 100 * 10) / 10 : 0;
 
     return { totalRevenue, avgOrderValue, trend, conversionRate };
   }
 
   private getDropOffRecommendation(step: string, rate: number): string {
     const recommendations: Record<string, string> = {
-      "step_view:system-type": "users may be confused by system options. consider adding comparison tooltips or simplifying descriptions.",
-      "step_view:duct-condition": "duct condition is technical. add a visual guide or 'not sure' option to reduce uncertainty.",
-      "step_view:add-ons": "users may feel overwhelmed by add-ons. consider showing fewer options or pre-selecting popular ones.",
-      "step_view:summary": "price shock at summary. consider showing running total earlier in the flow.",
-      "booking_started": "users hesitate at booking. add trust indicators (reviews, guarantees) before this step.",
-      "booking_completed": "booking form may be too complex. simplify or reduce required fields.",
-      "payment_started": "users abandon before payment. highlight deposit option and security badges.",
-      "payment_completed": "payment failures. check stripe integration and offer alternative payment methods.",
+      "step_view:system-type":
+        "users may be confused by system options. consider adding comparison tooltips or simplifying descriptions.",
+      "step_view:duct-condition":
+        "duct condition is technical. add a visual guide or 'not sure' option to reduce uncertainty.",
+      "step_view:add-ons":
+        "users may feel overwhelmed by add-ons. consider showing fewer options or pre-selecting popular ones.",
+      "step_view:summary":
+        "price shock at summary. consider showing running total earlier in the flow.",
+      booking_started:
+        "users hesitate at booking. add trust indicators (reviews, guarantees) before this step.",
+      booking_completed: "booking form may be too complex. simplify or reduce required fields.",
+      payment_started:
+        "users abandon before payment. highlight deposit option and security badges.",
+      payment_completed:
+        "payment failures. check stripe integration and offer alternative payment methods.",
     };
 
     return (
@@ -277,9 +268,6 @@ export class PredictionService {
   }
 
   private formatStepName(step: string): string {
-    return step
-      .replace("step_view:", "")
-      .replace("_", " ")
-      .replace(/-/g, " ");
+    return step.replace("step_view:", "").replace("_", " ").replace(/-/g, " ");
   }
 }

@@ -55,11 +55,7 @@ export class GhlProvider implements CrmProvider {
     if (data.properties.phone) body.phone = data.properties.phone;
     if (data.tags) body.tags = data.tags;
 
-    const response = await this.request(
-      `/contacts/${data.contactId}`,
-      "PUT",
-      body,
-    );
+    const response = await this.request(`/contacts/${data.contactId}`, "PUT", body);
 
     if (!response.ok) {
       const error = await response.text();
@@ -92,22 +88,14 @@ export class GhlProvider implements CrmProvider {
     return { success: true, externalId: result.opportunity?.id };
   }
 
-  async updateDeal(
-    dealId: string,
-    properties: Record<string, string>,
-  ): Promise<CrmResult> {
+  async updateDeal(dealId: string, properties: Record<string, string>): Promise<CrmResult> {
     const body: Record<string, unknown> = {};
 
     if (properties.status) body.status = properties.status;
     if (properties.stageId) body.stageId = properties.stageId;
-    if (properties.monetaryValue)
-      body.monetaryValue = parseFloat(properties.monetaryValue);
+    if (properties.monetaryValue) body.monetaryValue = parseFloat(properties.monetaryValue);
 
-    const response = await this.request(
-      `/opportunities/${dealId}`,
-      "PUT",
-      body,
-    );
+    const response = await this.request(`/opportunities/${dealId}`, "PUT", body);
 
     if (!response.ok) {
       const error = await response.text();
@@ -118,11 +106,7 @@ export class GhlProvider implements CrmProvider {
     return { success: true, externalId: dealId };
   }
 
-  private async request(
-    path: string,
-    method: string,
-    body?: unknown,
-  ): Promise<Response> {
+  private async request(path: string, method: string, body?: unknown): Promise<Response> {
     return fetch(`${this.baseUrl}${path}`, {
       method,
       headers: {

@@ -10,10 +10,12 @@ export function BookingConfirmation() {
 
   if (!booking) return null;
 
-  const dateFormatted = new Date(booking.date + "T00:00:00").toLocaleDateString(
-    "en-US",
-    { weekday: "long", month: "long", day: "numeric", year: "numeric" },
-  );
+  const dateFormatted = new Date(booking.date + "T00:00:00").toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   const slotFormatted = booking.slot
     .replace("-", " – ")
@@ -30,13 +32,7 @@ export function BookingConfirmation() {
         transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
         className="flex h-20 w-20 items-center justify-center rounded-full bg-secondary/20"
       >
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="text-emerald-600"
-        >
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-emerald-600">
           <path
             d="M5 13l4 4L19 7"
             stroke="currentColor"
@@ -73,33 +69,21 @@ export function BookingConfirmation() {
       >
         <div className="space-y-4">
           <div>
-            <p className="text-xs uppercase tracking-wider text-neutral-400">
-              date
-            </p>
-            <p className="mt-0.5 font-semibold text-neutral-900">
-              {dateFormatted}
-            </p>
+            <p className="text-xs uppercase tracking-wider text-neutral-400">date</p>
+            <p className="mt-0.5 font-semibold text-neutral-900">{dateFormatted}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-neutral-400">
-              time
-            </p>
-            <p className="mt-0.5 font-semibold text-neutral-900">
-              {slotFormatted}
-            </p>
+            <p className="text-xs uppercase tracking-wider text-neutral-400">time</p>
+            <p className="mt-0.5 font-semibold text-neutral-900">{slotFormatted}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-neutral-400">
-              confirmation
-            </p>
+            <p className="text-xs uppercase tracking-wider text-neutral-400">confirmation</p>
             <p className="mt-0.5 font-mono text-sm text-neutral-600">
               {booking.id.slice(0, 8).toUpperCase()}
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-neutral-400">
-              status
-            </p>
+            <p className="text-xs uppercase tracking-wider text-neutral-400">status</p>
             <span className="mt-0.5 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
               {booking.status}
             </span>

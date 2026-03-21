@@ -3,17 +3,15 @@
 import { useState, useCallback } from "react";
 import { DataTable, Badge, Modal } from "@/features/admin/components";
 import { Button, Input } from "@draftiq/ui";
-import {
-  fetchPricingRules,
-  updatePricingRule,
-  type PricingRule,
-} from "@/features/admin/api";
+import { fetchPricingRules, updatePricingRule, type PricingRule } from "@/features/admin/api";
 import { useAdminData } from "@/features/admin/use-admin-data";
 
 export default function PricingPage() {
-  const { data: rules, loading, refresh } = useAdminData(
-    useCallback(() => fetchPricingRules(), []),
-  );
+  const {
+    data: rules,
+    loading,
+    refresh,
+  } = useAdminData(useCallback(() => fetchPricingRules(), []));
   const [editing, setEditing] = useState<PricingRule | null>(null);
   const [formLabel, setFormLabel] = useState("");
   const [formValue, setFormValue] = useState("");
@@ -54,16 +52,16 @@ export default function PricingPage() {
     {
       key: "type",
       header: "type",
-      render: (row: PricingRule) => (
-        <Badge variant="info">{row.type.toLowerCase()}</Badge>
-      ),
+      render: (row: PricingRule) => <Badge variant="info">{row.type.toLowerCase()}</Badge>,
     },
     {
       key: "value",
       header: "value",
       render: (row: PricingRule) => (
         <span className="font-semibold">
-          {row.type === "PERCENTAGE" ? `${row.value}%` : `$${parseFloat(row.value).toLocaleString()}`}
+          {row.type === "PERCENTAGE"
+            ? `${row.value}%`
+            : `$${parseFloat(row.value).toLocaleString()}`}
         </span>
       ),
     },
@@ -104,35 +102,22 @@ export default function PricingPage() {
         />
       </div>
 
-      <Modal
-        open={!!editing}
-        onClose={() => setEditing(null)}
-        title="edit pricing rule"
-      >
+      <Modal open={!!editing} onClose={() => setEditing(null)} title="edit pricing rule">
         <div className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              key
-            </label>
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">key</label>
             <p className="rounded-lg bg-neutral-50 px-3 py-2 font-mono text-sm text-neutral-600">
               {editing?.key}
             </p>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              label
-            </label>
-            <Input
-              value={formLabel}
-              onChange={(e) => setFormLabel(e.target.value)}
-            />
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">label</label>
+            <Input value={formLabel} onChange={(e) => setFormLabel(e.target.value)} />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              value
-            </label>
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">value</label>
             <Input
               type="number"
               step="0.01"
@@ -142,9 +127,7 @@ export default function PricingPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-neutral-500">
-              type
-            </label>
+            <label className="mb-1.5 block text-xs font-medium text-neutral-500">type</label>
             <select
               value={formType}
               onChange={(e) => setFormType(e.target.value)}

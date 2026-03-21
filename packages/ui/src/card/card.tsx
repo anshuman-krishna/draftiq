@@ -16,9 +16,7 @@ const variantStyles: Record<CardVariant, string> = {
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ variant = "default", glass = true, className = "", children, ...props }, ref) => {
-    const baseGlass = glass
-      ? "glass-medium"
-      : "bg-white border border-neutral-200 shadow-sm";
+    const baseGlass = glass ? "glass-medium" : "bg-white border border-neutral-200 shadow-sm";
 
     return (
       <div

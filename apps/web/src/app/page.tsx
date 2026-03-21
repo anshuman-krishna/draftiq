@@ -65,11 +65,14 @@ export default function Home() {
               className="mx-auto mb-10 max-w-lg text-lg text-neutral-500"
               variants={staggerItem}
             >
-              replace manual quoting with an intelligent pricing engine that
-              converts visitors into customers.
+              replace manual quoting with an intelligent pricing engine that converts visitors into
+              customers.
             </motion.p>
 
-            <motion.div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center" variants={staggerItem}>
+            <motion.div
+              className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+              variants={staggerItem}
+            >
               <Link
                 href="/estimate"
                 className="inline-flex items-center gap-2 rounded-2xl bg-neutral-900 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]"
@@ -85,9 +88,7 @@ export default function Home() {
                   />
                 </svg>
               </Link>
-              <span className="text-sm text-neutral-400">
-                takes about 2 minutes
-              </span>
+              <span className="text-sm text-neutral-400">takes about 2 minutes</span>
             </motion.div>
           </motion.div>
 
@@ -138,12 +139,8 @@ export default function Home() {
                 className="glass-light rounded-2xl p-6"
                 variants={staggerItem}
               >
-                <h3 className="mb-2 text-base font-semibold text-neutral-900">
-                  {feature.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-neutral-500">
-                  {feature.description}
-                </p>
+                <h3 className="mb-2 text-base font-semibold text-neutral-900">{feature.title}</h3>
+                <p className="text-sm leading-relaxed text-neutral-500">{feature.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -162,8 +159,7 @@ export default function Home() {
               ready to get your estimate?
             </h2>
             <p className="mx-auto mb-8 max-w-md text-neutral-500">
-              answer a few questions about your home and get an instant,
-              transparent quote.
+              answer a few questions about your home and get an instant, transparent quote.
             </p>
             <Link
               href="/estimate"

@@ -34,11 +34,7 @@ function getUrgencyStyle(label: SlotInfo["label"], isSelected: boolean) {
   }
 }
 
-export function SlotSelector({
-  slots,
-  selectedSlot,
-  onSelect,
-}: SlotSelectorProps) {
+export function SlotSelector({ slots, selectedSlot, onSelect }: SlotSelectorProps) {
   return (
     <motion.div
       className="grid gap-3 sm:grid-cols-3"
@@ -75,9 +71,7 @@ export function SlotSelector({
             >
               {SLOT_ICONS[slot.time] ?? slot.time}
             </p>
-            <p
-              className={`mt-2 text-xs ${getUrgencyStyle(slot.label, isSelected)}`}
-            >
+            <p className={`mt-2 text-xs ${getUrgencyStyle(slot.label, isSelected)}`}>
               {isFull
                 ? "fully booked"
                 : slot.label === "last slot"

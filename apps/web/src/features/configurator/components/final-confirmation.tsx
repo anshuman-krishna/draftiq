@@ -31,12 +31,10 @@ export function FinalConfirmation() {
     : "";
 
   const slotFormatted = booking
-    ? booking.slot
-        .replace("-", " – ")
-        .replace(/(\d{2}):(\d{2})/g, (_, h: string, m: string) => {
-          const hour = parseInt(h);
-          return `${hour > 12 ? hour - 12 : hour}${m === "00" ? "" : `:${m}`}${hour >= 12 ? "pm" : "am"}`;
-        })
+    ? booking.slot.replace("-", " – ").replace(/(\d{2}):(\d{2})/g, (_, h: string, m: string) => {
+        const hour = parseInt(h);
+        return `${hour > 12 ? hour - 12 : hour}${m === "00" ? "" : `:${m}`}${hour >= 12 ? "pm" : "am"}`;
+      })
     : "";
 
   return (
@@ -47,13 +45,7 @@ export function FinalConfirmation() {
         transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
         className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100"
       >
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="text-emerald-600"
-        >
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-emerald-600">
           <path
             d="M5 13l4 4L19 7"
             stroke="currentColor"
@@ -124,22 +116,14 @@ export function FinalConfirmation() {
                 <p className="text-xs uppercase tracking-wider text-neutral-400">
                   installation date
                 </p>
-                <p className="mt-0.5 font-semibold text-neutral-900">
-                  {dateFormatted}
-                </p>
+                <p className="mt-0.5 font-semibold text-neutral-900">{dateFormatted}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-neutral-400">
-                  time window
-                </p>
-                <p className="mt-0.5 font-semibold text-neutral-900">
-                  {slotFormatted}
-                </p>
+                <p className="text-xs uppercase tracking-wider text-neutral-400">time window</p>
+                <p className="mt-0.5 font-semibold text-neutral-900">{slotFormatted}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-neutral-400">
-                  confirmation id
-                </p>
+                <p className="text-xs uppercase tracking-wider text-neutral-400">confirmation id</p>
                 <p className="mt-0.5 font-mono text-sm text-neutral-600">
                   {booking.id.slice(0, 8).toUpperCase()}
                 </p>

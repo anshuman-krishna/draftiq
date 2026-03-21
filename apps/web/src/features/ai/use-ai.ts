@@ -30,10 +30,7 @@ interface AiPayload {
   breakdown: { items: { label: string; price: number }[]; total: number };
 }
 
-async function fetchAi<T>(
-  endpoint: string,
-  payload: AiPayload,
-): Promise<T | null> {
+async function fetchAi<T>(endpoint: string, payload: AiPayload): Promise<T | null> {
   try {
     const response = await fetch(`${API_BASE}/ai/${endpoint}`, {
       method: "POST",

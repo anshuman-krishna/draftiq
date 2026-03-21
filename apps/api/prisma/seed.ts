@@ -17,18 +17,60 @@ const hvacRules: SeedRule[] = [
   { key: "base:large", label: "base installation", type: "FIXED", value: 6500, category: "base" },
   { key: "base:xlarge", label: "base installation", type: "FIXED", value: 8200, category: "base" },
   { key: "system:standard", label: "standard system", type: "FIXED", value: 0, category: "system" },
-  { key: "system:high-efficiency", label: "high efficiency upgrade", type: "FIXED", value: 1800, category: "system" },
-  { key: "system:premium", label: "premium upgrade", type: "FIXED", value: 3500, category: "system" },
+  {
+    key: "system:high-efficiency",
+    label: "high efficiency upgrade",
+    type: "FIXED",
+    value: 1800,
+    category: "system",
+  },
+  {
+    key: "system:premium",
+    label: "premium upgrade",
+    type: "FIXED",
+    value: 3500,
+    category: "system",
+  },
   { key: "duct:good", label: "ductwork — good", type: "FIXED", value: 0, category: "duct" },
   { key: "duct:fair", label: "duct sealing", type: "FIXED", value: 800, category: "duct" },
   { key: "duct:poor", label: "duct repair", type: "FIXED", value: 1600, category: "duct" },
   { key: "duct:replace", label: "duct replacement", type: "FIXED", value: 3200, category: "duct" },
-  { key: "addon:thermostat", label: "smart thermostat", type: "FIXED", value: 350, category: "addon" },
+  {
+    key: "addon:thermostat",
+    label: "smart thermostat",
+    type: "FIXED",
+    value: 350,
+    category: "addon",
+  },
   { key: "addon:purifier", label: "air purifier", type: "FIXED", value: 650, category: "addon" },
-  { key: "addon:humidifier", label: "whole-home humidifier", type: "FIXED", value: 450, category: "addon" },
-  { key: "addon:warranty", label: "extended warranty", type: "FIXED", value: 500, category: "addon" },
-  { key: "addon:maintenance", label: "annual maintenance plan", type: "FIXED", value: 299, category: "addon" },
-  { key: "addon:zoning", label: "zone control system", type: "FIXED", value: 1200, category: "addon" },
+  {
+    key: "addon:humidifier",
+    label: "whole-home humidifier",
+    type: "FIXED",
+    value: 450,
+    category: "addon",
+  },
+  {
+    key: "addon:warranty",
+    label: "extended warranty",
+    type: "FIXED",
+    value: 500,
+    category: "addon",
+  },
+  {
+    key: "addon:maintenance",
+    label: "annual maintenance plan",
+    type: "FIXED",
+    value: 299,
+    category: "addon",
+  },
+  {
+    key: "addon:zoning",
+    label: "zone control system",
+    type: "FIXED",
+    value: 1200,
+    category: "addon",
+  },
 ];
 
 async function seedPricingRules() {
@@ -36,8 +78,21 @@ async function seedPricingRules() {
   for (const rule of hvacRules) {
     await prisma.pricingRule.upsert({
       where: { key: rule.key },
-      update: { label: rule.label, type: rule.type, value: rule.value, category: rule.category, baseKey: rule.baseKey ?? null },
-      create: { key: rule.key, label: rule.label, type: rule.type, value: rule.value, category: rule.category, baseKey: rule.baseKey ?? null },
+      update: {
+        label: rule.label,
+        type: rule.type,
+        value: rule.value,
+        category: rule.category,
+        baseKey: rule.baseKey ?? null,
+      },
+      create: {
+        key: rule.key,
+        label: rule.label,
+        type: rule.type,
+        value: rule.value,
+        category: rule.category,
+        baseKey: rule.baseKey ?? null,
+      },
     });
   }
   const count = await prisma.pricingRule.count();

@@ -88,15 +88,8 @@ export class HubspotProvider implements CrmProvider {
     return { success: true, externalId: result.id };
   }
 
-  async updateDeal(
-    dealId: string,
-    properties: Record<string, string>,
-  ): Promise<CrmResult> {
-    const response = await this.request(
-      `/crm/v3/objects/deals/${dealId}`,
-      "PATCH",
-      { properties },
-    );
+  async updateDeal(dealId: string, properties: Record<string, string>): Promise<CrmResult> {
+    const response = await this.request(`/crm/v3/objects/deals/${dealId}`, "PATCH", { properties });
 
     if (!response.ok) {
       const error = await response.text();
@@ -107,11 +100,7 @@ export class HubspotProvider implements CrmProvider {
     return { success: true, externalId: dealId };
   }
 
-  private async request(
-    path: string,
-    method: string,
-    body?: unknown,
-  ): Promise<Response> {
+  private async request(path: string, method: string, body?: unknown): Promise<Response> {
     return fetch(`${this.baseUrl}${path}`, {
       method,
       headers: {

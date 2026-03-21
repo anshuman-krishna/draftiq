@@ -3,7 +3,13 @@ import { Prisma } from "@prisma/client";
 import { PrismaService } from "../../prisma/prisma.service";
 import { HubspotProvider } from "./providers/hubspot.provider";
 import { GhlProvider } from "./providers/ghl.provider";
-import type { CrmProvider, CrmContactData, CrmUpdateData, CrmDealData, CrmResult } from "./crm.types";
+import type {
+  CrmProvider,
+  CrmContactData,
+  CrmUpdateData,
+  CrmDealData,
+  CrmResult,
+} from "./crm.types";
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 1000;
@@ -29,9 +35,7 @@ export class CrmService {
       where: { isEnabled: true },
     });
 
-    return configs
-      .map((c) => this.providers.get(c.provider))
-      .filter((p): p is CrmProvider => !!p);
+    return configs.map((c) => this.providers.get(c.provider)).filter((p): p is CrmProvider => !!p);
   }
 
   // execute an action on all enabled providers
@@ -54,18 +58,13 @@ export class CrmService {
   }
 
   // retry wrapper
-  private async withRetry(
-    fn: () => Promise<CrmResult>,
-    retries = MAX_RETRIES,
-  ): Promise<CrmResult> {
+  private async withRetry(fn: () => Promise<CrmResult>, retries = MAX_RETRIES): Promise<CrmResult> {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const result = await fn();
         if (result.success || attempt === retries) return result;
 
-        this.logger.warn(
-          `crm action failed (attempt ${attempt}/${retries}): ${result.error}`,
-        );
+        this.logger.warn(`crm action failed (attempt ${attempt}/${retries}): ${result.error}`);
         await this.delay(RETRY_DELAY_MS * attempt);
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
@@ -96,9 +95,7 @@ export class CrmService {
           provider,
           action,
           status: result.success ? "success" : "failed",
-          payload: result.externalId
-            ? { externalId: result.externalId }
-            : undefined,
+          payload: result.externalId ? { externalId: result.externalId } : undefined,
           error: result.error ?? null,
           entityId: entityId ?? null,
         },

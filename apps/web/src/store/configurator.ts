@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ConfiguratorSchema, ConfiguratorStep, PricingConfig, PriceBreakdown } from "@/types/configurator";
+import type {
+  ConfiguratorSchema,
+  ConfiguratorStep,
+  PricingConfig,
+  PriceBreakdown,
+} from "@/types/configurator";
 import { evaluateCondition } from "@/lib/conditions";
 import { calculatePrice } from "@/features/pricing";
 

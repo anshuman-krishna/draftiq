@@ -51,22 +51,14 @@ export function BookingStep() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-neutral-900">
-        schedule your installation
-      </h2>
-      <p className="mt-2 text-neutral-500">
-        pick a date and time that works best for you.
-      </p>
+      <h2 className="text-2xl font-bold text-neutral-900">schedule your installation</h2>
+      <p className="mt-2 text-neutral-500">pick a date and time that works best for you.</p>
 
       <div className="mt-8">
         <p className="mb-3 text-xs font-medium uppercase tracking-wider text-neutral-400">
           select a date
         </p>
-        <Calendar
-          days={availability}
-          selectedDate={selectedDate}
-          onSelect={selectDate}
-        />
+        <Calendar days={availability} selectedDate={selectedDate} onSelect={selectDate} />
       </div>
 
       <AnimatePresence mode="wait">

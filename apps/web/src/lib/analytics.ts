@@ -50,10 +50,7 @@ function scheduleFlush() {
   }, FLUSH_INTERVAL_MS);
 }
 
-export function trackEvent(
-  eventType: string,
-  metadata: Record<string, unknown> = {},
-) {
+export function trackEvent(eventType: string, metadata: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
 
   eventQueue.push({

@@ -12,17 +12,12 @@ export class IntegrationsController {
   }
 
   @Patch(":provider")
-  async updateConfig(
-    @Param("provider") provider: string,
-    @Body() dto: UpdateIntegrationDto,
-  ) {
+  async updateConfig(@Param("provider") provider: string, @Body() dto: UpdateIntegrationDto) {
     return this.crmService.upsertIntegrationConfig(provider, dto);
   }
 
   @Get("logs")
   async getLogs(@Query("limit") limit?: string) {
-    return this.crmService.getIntegrationLogs(
-      limit ? parseInt(limit) : undefined,
-    );
+    return this.crmService.getIntegrationLogs(limit ? parseInt(limit) : undefined);
   }
 }

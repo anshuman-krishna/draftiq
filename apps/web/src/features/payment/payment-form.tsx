@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  PaymentElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { motion } from "framer-motion";
 import { Button } from "@draftiq/ui";
 import { usePaymentStore } from "@/store/payment";
@@ -46,13 +42,7 @@ export function PaymentForm() {
     <form onSubmit={handleSubmit}>
       {/* trust indicators */}
       <div className="mb-6 flex items-center gap-2 rounded-xl bg-neutral-50 px-4 py-3">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="text-emerald-600"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-emerald-600">
           <path
             d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
             stroke="currentColor"
@@ -66,16 +56,9 @@ export function PaymentForm() {
         </span>
       </div>
 
-      <PaymentElement
-        onReady={() => setReady(true)}
-        options={{ layout: "tabs" }}
-      />
+      <PaymentElement onReady={() => setReady(true)} options={{ layout: "tabs" }} />
 
-      <motion.div
-        className="mt-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: ready ? 1 : 0 }}
-      >
+      <motion.div className="mt-6" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }}>
         <Button
           type="submit"
           size="lg"
@@ -89,13 +72,7 @@ export function PaymentForm() {
             </>
           ) : (
             <>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="mr-2"
-              >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="mr-2">
                 <rect
                   x="1"
                   y="4"
@@ -105,11 +82,7 @@ export function PaymentForm() {
                   stroke="currentColor"
                   strokeWidth="2"
                 />
-                <path
-                  d="M1 10h22"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M1 10h22" stroke="currentColor" strokeWidth="2" />
               </svg>
               pay {formatPrice(paymentAmount)}
             </>

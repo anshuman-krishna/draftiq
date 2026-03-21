@@ -16,10 +16,7 @@ export class BookingController {
 
   @Get("availability")
   async getAvailability(@Query() query: GetAvailabilityDto) {
-    return this.bookingService.getAvailability(
-      query.startDate,
-      query.endDate,
-    );
+    return this.bookingService.getAvailability(query.startDate, query.endDate);
   }
 
   @Get("availability/all")
@@ -33,18 +30,12 @@ export class BookingController {
   }
 
   @Patch(":id")
-  async updateBooking(
-    @Param("id") id: string,
-    @Body() dto: UpdateBookingDto,
-  ) {
+  async updateBooking(@Param("id") id: string, @Body() dto: UpdateBookingDto) {
     return this.bookingService.updateBookingStatus(id, dto.status);
   }
 
   @Patch("availability/:id")
-  async updateAvailability(
-    @Param("id") id: string,
-    @Body() dto: UpdateAvailabilityDto,
-  ) {
+  async updateAvailability(@Param("id") id: string, @Body() dto: UpdateAvailabilityDto) {
     return this.bookingService.updateAvailability(id, dto.totalSlots);
   }
 }
