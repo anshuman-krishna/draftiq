@@ -2,7 +2,7 @@
 
 a quoting and booking platform for service businesses. started as an hvac configurator, being built to work across industries.
 
-the basic problem: getting a price from a service company is still painfully slow. you call, you wait, someone comes out, you get a number days later. both sides lose time and money in the process. draftiq tries to compress that into a single guided flow — configure what you need, see pricing, book, pay.
+the basic problem: getting a price from a service company is still painfully slow. you call, you wait, someone comes out, you get a number days later. both sides lose time and money in the process. draftiq tries to compress that into a single guided flow, configure what you need, see pricing, book, pay.
 
 ---
 
@@ -29,7 +29,7 @@ the configurator is schema-driven. steps, questions, and branching logic are all
 
 ## pricing
 
-rule-based, not static. each option maps to pricing rules that can be fixed, percentage-based, per-unit, or tiered. everything calculates in real time on the backend, and the frontend reflects it instantly. the goal is transparent pricing — customers see exactly what they're paying for and why.
+rule-based, not static. each option maps to pricing rules that can be fixed, percentage-based, per-unit, or tiered. everything calculates in real time on the backend, and the frontend reflects it instantly. the goal is transparent pricing; customers see exactly what they're paying for and why.
 
 ---
 
@@ -55,7 +55,7 @@ supports multiple businesses from one deployment. tenant resolution works via su
 
 ## analytics and predictions
 
-every step, booking, and payment is tracked. the admin dashboard shows funnel analysis, drop-off points, and revenue data. there's also a predictive layer — conversion probability scoring, drop-off risk detection, and a/b testing with deterministic variant assignment.
+every step, booking, and payment is tracked. the admin dashboard shows funnel analysis, drop-off points, and revenue data. there's also a predictive layer; conversion probability scoring, drop-off risk detection, and a/b testing with deterministic variant assignment.
 
 ---
 
@@ -67,7 +67,7 @@ every step, booking, and payment is tracked. the admin dashboard shows funnel an
 
 **services:** stripe, openai, crm apis
 
-architecture is modular — feature-based on the frontend, module-based on the backend. standard stuff: input validation everywhere, rate limiting, secure env handling, sql injection protection via prisma.
+architecture is modular; feature-based on the frontend, module-based on the backend. standard stuff: input validation everywhere, rate limiting, secure env handling, sql injection protection via prisma.
 
 ---
 
@@ -102,10 +102,10 @@ pnpm db:seed      # seed the database
 
 ## extensibility
 
-not locked to hvac. the pricing engine and configurator are industry-agnostic by design. plumbing, solar, roofing, custom services — it's a matter of adding schemas and rules. the long-term idea is a no-code pricing engine that any service business can set up themselves.
+not locked to hvac. the pricing engine and configurator are industry-agnostic by design. plumbing, solar, roofing, custom services; it's a matter of adding schemas and rules. the long-term idea is a no-code pricing engine that any service business can set up themselves.
 
 ---
 
 ## why
 
-most service businesses still run on phone calls and spreadsheets for quoting. it works, but it's slow and it leaks leads. this is a personal project but it's built with real use in mind — not just features for the sake of features, but stuff that actually tightens the gap between "interested" and "booked."
+most service businesses still run on phone calls and spreadsheets for quoting. it works, but it's slow and it leaks leads. this is a personal project but it's built with real use in mind; not just features for the sake of features, but stuff that actually tightens the gap between "interested" and "booked."
