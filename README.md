@@ -23,7 +23,7 @@ the whole point is one unbroken flow: **quote → book → pay → done.**
 
 ## configurator
 
-the configurator is schema-driven. steps, questions, and branching logic are all defined in config — nothing is hardcoded to a specific industry. supports single/multi select, conditional visibility, and dynamic branching. adding a new industry means writing a new schema, not new code.
+the configurator is schema-driven. steps, questions, and branching logic are all defined in config; nothing is hardcoded to a specific industry. supports single/multi select, conditional visibility, and dynamic branching. adding a new industry means writing a new schema, not new code.
 
 ---
 
