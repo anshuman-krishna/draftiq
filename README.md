@@ -1,274 +1,73 @@
 ## draftiq
 
-this is a personal project built from a simple observation
+a quoting and booking platform for service businesses. started as an hvac configurator, being built to work across industries.
 
-most service businesses still rely on slow, manual processes to quote, schedule, and close deals
-
-- customers have to call
-- wait for callbacks
-- book inspections
-- go through multiple steps just to get a price
-
-this creates friction on both sides
-
-draftiq is an attempt to remove that friction
-
-it is not just a calculator
-it is not just a booking tool
-
-it is a system designed to handle the entire flow
-from first interaction to final payment
-
-many systems like this one exist already but i am trying to bring new features to it which cater to both a larger but also to a niche audience.
+the basic problem: getting a price from a service company is still painfully slow. you call, you wait, someone comes out, you get a number days later. both sides lose time and money in the process. draftiq tries to compress that into a single guided flow — configure what you need, see pricing, book, pay.
 
 ---
 
-## what this actually is
+## what it does
 
-draftiq is a full stack platform that allows service businesses to
+- multi-step configurator that walks customers through service selection
+- real-time pricing that updates as they make choices
+- booking with availability, time slots, and capacity tracking
+- stripe payments (full or deposit)
+- crm sync with hubspot and gohighlevel
+- admin dashboard for managing everything
+- analytics across the full funnel
+- ai-assisted recommendations (package suggestions, price explanations)
 
-* generate instant quotes through guided configurators
-* show transparent pricing in real time
-* let customers book installations directly
-* accept payments online
-* sync everything into their crm
-* track performance and optimize conversions
-* use ai to assist users in making decisions
-
-it combines
-
-configurators
-pricing engines
-booking systems
-payments
-crm integrations
-analytics
-ai assistance
-
-into one cohesive system
+the whole point is one unbroken flow: **quote → book → pay → done.**
 
 ---
 
-## core flow
+## configurator
 
-the system is built around a single idea
-
-a customer should be able to go from interest to confirmed job without friction
-
-the flow looks like this
-
-quote → book → pay → confirm
-
-everything is connected
-
-every step updates the next
+the configurator is schema-driven. steps, questions, and branching logic are all defined in config — nothing is hardcoded to a specific industry. supports single/multi select, conditional visibility, and dynamic branching. adding a new industry means writing a new schema, not new code.
 
 ---
 
-## configurator engine
+## pricing
 
-this is the entry point
-
-users go through a multi-step flow where they answer guided questions
-
-the system is fully schema-driven
-
-which means
-
-* steps are not hardcoded
-* logic is dynamic
-* flows can be reused across industries
-
-it supports
-
-single select
-multi select
-conditional steps
-dynamic branching
-
-new industries can be added by defining a new schema
+rule-based, not static. each option maps to pricing rules that can be fixed, percentage-based, per-unit, or tiered. everything calculates in real time on the backend, and the frontend reflects it instantly. the goal is transparent pricing — customers see exactly what they're paying for and why.
 
 ---
 
-## pricing engine
+## booking and payments
 
-pricing is not static
+once a quote is generated, customers pick a date and time slot. there's availability tracking and capacity limits built in, plus urgency indicators (limited slots, last available) to nudge conversion.
 
-it is rule-based and database-driven
-
-each option maps to pricing rules
-
-supports
-
-fixed pricing
-percentage adjustments
-per-unit pricing
-tier-based systems
-
-all pricing is calculated in real time
-
-the frontend reflects changes instantly
-
-the backend ensures consistency and security
+payments go through stripe. supports full payments and deposits, with webhook verification and status tracking. no card data touches our backend.
 
 ---
 
-## booking system
+## admin
 
-once a quote is generated
-
-users can directly schedule installation
-
-features include
-
-date selection
-time slots
-availability tracking
-capacity management
-
-there is also an urgency layer
-
-* limited slots messaging
-* last slot indicators
-
-this improves conversion
-
----
-
-## payments
-
-payments are handled through stripe
-
-users can
-
-* pay full amount
-* or pay a deposit
-
-the system includes
-
-payment intents
-webhook verification
-status tracking
-secure handling
-
-no sensitive data touches the backend
-
----
-
-## admin dashboard
-
-businesses control everything from the dashboard
-
-they can
-
-* update pricing rules
-* manage bookings
-* adjust availability
-* view quotes
-* track payments
-* monitor integrations
-
-the ui follows the same glass-based design system as the main app
-
----
-
-## crm integrations
-
-draftiq connects with external systems
-
-currently supports
-
-hubspot
-gohighlevel
-
-events are synced automatically
-
-* quote created
-* booking confirmed
-* payment completed
-
-the system uses a provider-based architecture
-
-which allows adding more integrations later
-
----
-
-## ai layer
-
-ai is used to assist decision making
-
-it does not replace logic
-
-it enhances it
-
-features include
-
-* package recommendations
-* price explanations
-* upsell suggestions
-
-ai responses are structured and controlled
-
-it never overrides actual pricing
-
----
-
-## analytics
-
-every interaction is tracked
-
-the system collects
-
-step views
-step completions
-booking events
-payment events
-
-this allows
-
-* funnel analysis
-* conversion tracking
-* revenue insights
-
-the admin dashboard visualizes this data
-
----
-
-## predictive intelligence
-
-the system uses analytics data to generate actionable insights
-
-* conversion probability scoring per session
-* drop-off risk detection across funnel steps
-* automated recommendations for reducing friction
-* a/b testing with deterministic variant assignment
+businesses manage their own pricing rules, availability, bookings, and integrations from the dashboard. same design language as the customer-facing side.
 
 ---
 
 ## multi-tenant
 
-draftiq supports multiple businesses from a single deployment
-
-* tenant resolution from subdomain, header, or query parameter
-* data isolation via tenant scoping on all models
-* white-label branding with dynamic theming
-* per-tenant configuration and settings
+supports multiple businesses from one deployment. tenant resolution works via subdomain, header, or query param. data is isolated per tenant, and branding is white-labeled with dynamic theming.
 
 ---
 
-## visual system
+## analytics and predictions
 
-the ui is built around a glassmorphism design
+every step, booking, and payment is tracked. the admin dashboard shows funnel analysis, drop-off points, and revenue data. there's also a predictive layer — conversion probability scoring, drop-off risk detection, and a/b testing with deterministic variant assignment.
 
-with
+---
 
-soft pastel colors
-layered blur effects
-subtle animations
+## tech stack
 
-interactions are designed to feel smooth and responsive
+**frontend:** next.js (app router), react, typescript, tailwind, framer motion, zustand
 
-not flashy, but refined
+**backend:** nestjs, prisma, mysql
+
+**services:** stripe, openai, crm apis
+
+architecture is modular — feature-based on the frontend, module-based on the backend. standard stuff: input validation everywhere, rate limiting, secure env handling, sql injection protection via prisma.
 
 ---
 
@@ -277,29 +76,18 @@ not flashy, but refined
 prerequisites: node >= 18, pnpm, mysql
 
 ```bash
-# install dependencies
 pnpm install
 
-# set up environment
 cp .env.example .env
 cp apps/api/.env.example apps/api/.env
 # edit apps/api/.env with your database url and api keys
 
-# run database migrations
 pnpm db:migrate
-
-# seed sample data
 pnpm db:seed
-
-# start development servers
 pnpm dev
 ```
 
-the frontend runs on http://localhost:3000
-
-the api runs on http://localhost:4000
-
-available scripts
+frontend runs on `localhost:3000`, api on `localhost:4000`.
 
 ```
 pnpm dev          # start both frontend and api
@@ -312,135 +100,12 @@ pnpm db:seed      # seed the database
 
 ---
 
-## technical overview
-
-this is a modern full stack system
-
-frontend
-
-next.js (app router)
-react
-typescript
-tailwind css
-framer motion
-zustand
-
-backend
-
-nestjs
-prisma
-mysql
-
-services include
-
-stripe
-openai
-crm apis
-
----
-
-## architecture
-
-the system follows
-
-* modular architecture
-* mvc principles
-* clear separation of concerns
-
-frontend is feature-based
-backend is module-based
-
-core modules include
-
-pricing
-booking
-payments
-integrations
-analytics
-ai
-
----
-
-## security
-
-security is built in from the start
-
-* input validation on all endpoints
-* sql injection protection via prisma
-* xss prevention
-* rate limiting
-* secure env handling
-
-webhooks are verified properly
-
-no sensitive data is exposed
-
----
-
-## performance
-
-the system is optimized for speed
-
-* debounced api calls
-* event batching
-* optimized queries
-* minimal re-renders
-
-frontend bundles are kept lean
-
----
-
 ## extensibility
 
-draftiq is not limited to hvac
-
-the system is designed to support
-
-plumbing
-solar
-roofing
-custom services
-
-new industries can be added by defining schemas and pricing rules
+not locked to hvac. the pricing engine and configurator are industry-agnostic by design. plumbing, solar, roofing, custom services — it's a matter of adding schemas and rules. the long-term idea is a no-code pricing engine that any service business can set up themselves.
 
 ---
 
-## current state
+## why
 
-the system is fully functional
-
-it includes
-
-* complete customer flow
-* admin controls
-* integrations
-* analytics
-* ai features
-
-it is ready to be deployed and used
-
----
-
-## why this exists
-
-most service businesses still operate with outdated workflows
-
-this creates delays, lost leads, and poor customer experience
-
-draftiq is an attempt to modernize that
-
-by making the process
-
-faster
-clearer
-and more automated
-
----
-
-## final note
-
-this is a personal project but it is built with real-world use in mind.
-
-the goal is not just to build features out of my mind but to also create a system that actually improves how businesses operate.
-
----
+most service businesses still run on phone calls and spreadsheets for quoting. it works, but it's slow and it leaks leads. this is a personal project but it's built with real use in mind — not just features for the sake of features, but stuff that actually tightens the gap between "interested" and "booked."
